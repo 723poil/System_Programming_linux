@@ -1,8 +1,8 @@
 cp1 : cp1.o
 	gcc -o cp1 cp1.o
 
-who3 : who3.o
-	gcc -o who3 who3.o
+who3 : who3.o utmplib.o
+	gcc -o who3 who3.o utmplib.o
 
 utmplib : utmplib.o
 	gcc -o utmplib utmplib.o
