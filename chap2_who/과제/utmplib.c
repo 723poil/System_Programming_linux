@@ -30,7 +30,7 @@ int utmp_open( char *filename ) {
     return fd_utmp;                       // return
 }
 
-int utmp_reload() { // 중요!!
+int utmp_reload() { // 중요!! warning이 떠서 함수 순서 바꿈
     int amt_read;
 
     amt_read = read( fd_utmp, utmpbuf, NRECS * UTSIZE ); // 남은 데이터들 read
