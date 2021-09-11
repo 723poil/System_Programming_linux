@@ -52,7 +52,7 @@ int main() {
 void showtime(long timeval) {
     struct tm *t;          // tm 구조체 선언
     t = localtime(&timeval); // tm 구조체에 접속시간 삽입
-    printf("%d-%d-%d %d:%d", 1900+t->tm_year, t->tm_mon+1, t->tm_mday, t->tm_hour, t->tm_min);
+    printf("%d-%02d-%02d %02d:%02d", 1900+t->tm_year, t->tm_mon+1, t->tm_mday, t->tm_hour, t->tm_min);
 }                         // 0000-00-00 00:00 형식으로 출력
 
 void show_info(struct utmp * utbufp) {

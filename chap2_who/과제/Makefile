@@ -4,8 +4,8 @@ cp1 : cp1.o
 who3 : who3.o utmplib.o
 	gcc -o who3 who3.o utmplib.o
 
-utmplib : utmplib.o
-	gcc -o utmplib utmplib.o
+utmplib : utmplib.o utmplib.h
+	gcc -o utmplib utmplib.o utmplib.h
 
 cp1.o : cp1.c
 	gcc -c cp1.c
