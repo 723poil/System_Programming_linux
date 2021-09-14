@@ -1,10 +1,11 @@
 /*
-file       : who3.c
+file       : mywho.c
 author     : 2017110051_이상협
-datetime   : 2021-09-14 15:07
+datetime   : 2021-09-11 15:59
 decription : utmp file을 opend하여 user접속기록을 확인하기 위한 코드로,
             utmplib파일을 통해 utmp파일을 열고, 읽고, 닫는 함수를 이용하여 데이터를 불러옴
-	    utmplib의 함수는 헤더파일을 통해 가져왔음
+	    utmplib의 함수는 헤더파일을 통해 가져왔으며, 날짜를 0000-00-00 00:00 형식으로 출력하기 위해
+	    localtime 함수와 tm 구조체를 사용하였음.
 	    showtime 함수에 들어갈때 time_t형식을 사용해서 코드를 작성해보려 했으나, 아직 미숙하여
 	    long 형식으로 넣고 안에서 time_t형식으로 변환을 함
 */
@@ -49,11 +50,10 @@ int main() {
 }
 
 void showtime(long timeval) {
-    char *cp;
-    cp = ctime(&timeval);
-
-    printf("%12.12s", cp+4 );
-}
+    struct tm *t;          // tm 구조체 선언
+    t = localtime(&timeval); // tm 구조체에 접속시간 삽입
+    printf("%d-%02d-%02d %02d:%02d", 1900+t->tm_year, t->tm_mon+1, t->tm_mday, t->tm_hour, t->tm_min);
+}                         // 0000-00-00 00:00 형식으로 출력
 
 void show_info(struct utmp * utbufp) {
     if ( utbufp->ut_type != USER_PROCESS ) { 
