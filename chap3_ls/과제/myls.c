@@ -1,6 +1,6 @@
 /*
 file        : myls.c
-author      : 201711005_SangHyup Lee
+author      : 2017110051_SangHyup Lee
 datetime    : 2021-09-17 21:14
 description : it is file to modify ls2.c file because /tmp command make error 
              so, put in dostat function a dirname for normal execution
