@@ -1,6 +1,6 @@
 /*
 file        : ls2.c
-author      : 201711005_SangHyup Lee
+author      : 2017110051_SangHyup Lee
 datetime    : 2021-09-17 12:00
 description : to view a list of files in a directory
 	      first - received the directory path as a command factor
