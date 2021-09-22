@@ -46,7 +46,7 @@ void do_ls(char *dirname) {
 	}
 	else{
 	    while( (direntp = readdir(dir_ptr)) != NULL ) {
-		dostat(direntp->d_name, dirname, strlen(dirname));
+		dostat(direntp->d_name, dirname, strlen(dirname)+strlen(direntp->d_name));
 	    }  // add dirname and string length of dirname
 	    closedir(dir_ptr);
 	}
