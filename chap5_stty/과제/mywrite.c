@@ -42,8 +42,15 @@ int main(int ac, char *av[]) {
     pwd = get_user_id(); // calling function to get user info
     ct = get_time_now(); // calling function to get time info
 
-    /* print out who sent the message and when  */
-    printf("Message from %s at %02d:%02d ...\n", pwd->pw_name, ct->tm_hour, ct->tm_min);
+    /* print out who sent the message and when */
+    snprintf(buf, BUFSIZ, "Message from %s at %02d:%02d ...\n", pwd->pw_name, ct->tm_hour, ct->tm_min);
+    /* I tried to use strcat, but I counldn`t put 'int' type, so i looked it up.
+       replace strcat with a single call using snprintf()
+       source : pythonq.com/so/c/1476133 */
+
+    if(write(fd, buf, strlen(buf)) == -1) {
+	exit(1);
+    }
 
     while(fgets(buf, BUFSIZ, stdin) != NULL) {
 	if (write(fd, buf, strlen(buf)) == -1) {
