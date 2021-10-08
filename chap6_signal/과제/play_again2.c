@@ -1,10 +1,3 @@
-/*
-file :
-author :
-datetime : 2021-10-08 10:50
-description :
-*/
-
 #include <stdio.h>
 #include <termios.h>
 
