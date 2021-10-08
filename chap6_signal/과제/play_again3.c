@@ -1,27 +1,27 @@
 /*
-file :
-author :
-datetime : 2021-10-08 11:53
-description :
+file        : play_again3.c
+author      : 2017110051_이상협
+datetime    : 2021-10-08 11:53
+description : use nonblocking mode for timeouts
 */
 
 #include <stdio.h>
 #include <termios.h>
-#include <fcntl.h>
-#include <string.h>
-#include <ctype.h>
-#include <unistd.h>
+#include <fcntl.h>    // file control
+#include <string.h>   // get_ok_char operation
+#include <ctype.h>    // tolower operation
+#include <unistd.h>   // sleep opeartion
 
 #define ASK "Do you want another transaction"
-#define TRIES 3
-#define SLEEPTIME 2
-#define BEEP putchar('\a')
+#define TRIES 3                  // maximum number of attempts
+#define SLEEPTIME 2              // 2 second
+#define BEEP putchar('\a')       // sound output
 
 int get_response(char *, int);
 void set_cr_noecho_mode(void);
-void set_nodelay_mode(void);
+void set_nodelay_mode(void);     // nodelay operation
 void tty_mode(int);
-int get_ok_char(void);
+int get_ok_char(void);           // character return that meets the desired criteria
 
 int main(void) {
 
@@ -29,8 +29,8 @@ int main(void) {
 
     tty_mode(0);
     set_cr_noecho_mode();
-    set_nodelay_mode();
-    response = get_response(ASK, TRIES);
+    set_nodelay_mode();                   // no input EOF
+    response = get_response(ASK, TRIES);  // add try
     tty_mode(1);
 
     return response;
@@ -41,15 +41,15 @@ int get_response(char* question, int maxtries) {
     int input;
 
     printf("%s (y/n)?", question);
-    fflush(stdout);
+    fflush(stdout);                          // to empty the buffer
 
-    while(1) {
-            sleep(SLEEPTIME);
+    while(1) {      
+            sleep(SLEEPTIME);                // wait input
             input = tolower(get_ok_char());
             if ( input == 'y' ) return 0;
             if ( input == 'n' ) return 1;
-            if ( maxtries-- == 0 ) return 2;
-            BEEP;
+            if ( maxtries-- == 0 ) return 2; // time out
+            BEEP;                            // sound output
     }
 }
 
@@ -75,9 +75,9 @@ void set_cr_noecho_mode() {
 void set_nodelay_mode() {
 
     int termflags;
-    termflags = fcntl(0, F_GETFL);
-    termflags |= O_NDELAY;
-    fcntl(0, F_SETFL, termflags);
+    termflags = fcntl(0, F_GETFL);  // read current setting
+    termflags |= O_NDELAY;          // set on nodelay - even if getchar is empty, return and proceed
+    fcntl(0, F_SETFL, termflags);   // setting
 }
 
 void tty_mode(int how) {

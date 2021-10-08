@@ -1,8 +1,9 @@
 /*
-file :
-author :
-datetime : 2021-10-08 10:50
-description :
+file        : play_again2.c
+author      : 2017110051_이상협
+datetime    : 2021-10-08 10:50
+description : code that allows user to return if user answer
+              according to the criteria without showing the output through extension of play_again1.c file
 */
 
 #include <stdio.h>
@@ -11,7 +12,7 @@ description :
 #define QUESTION "Do you want another transaction"
 
 int get_response(char *);
-void set_cr_noecho_mode(void);
+void set_cr_noecho_mode(void); // add noecho mode
 void tty_mode(int);
 
 int main(void) {
@@ -19,7 +20,7 @@ int main(void) {
     int response;
 
     tty_mode(0);
-    set_cr_noecho_mode();
+    set_cr_noecho_mode();              // set -icanon, -echo
     response = get_response(QUESTION);
     tty_mode(1);
 
@@ -36,7 +37,7 @@ int get_response(char* question) {
                 case 'Y': return 0;
                 case 'n':
                 case 'N':
-                case EOF: return 1;
+                case EOF: return 1; // don`t output error report
             }
     }
 }
@@ -47,7 +48,7 @@ void set_cr_noecho_mode(void) {
 
     tcgetattr(0, &ttystate);
     ttystate.c_lflag &= ~ICANON;
-    ttystate.c_lflag &= ~ECHO;
+    ttystate.c_lflag &= ~ECHO;          // no echo setting
     ttystate.c_cc[VMIN] = 1;
     tcsetattr(0, TCSANOW, &ttystate);
 }

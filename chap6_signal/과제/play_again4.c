@@ -1,8 +1,8 @@
 /*
-file :
-author :
-datetime : 2021-10-08 12:05
-description :
+file        : play_again4.c
+author      : 2017110051_이상협
+datetime    : 2021-10-08 12:05
+description : SIGINT key -> handling ( reset driver and return ) and SIGQUIT key -> ignore
 */
 
 #include <stdio.h>
@@ -11,7 +11,8 @@ description :
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
-#include <signal.h>
+#include <signal.h> // signal operation
+#include <stdlib.h> // exit operation
 
 #define ASK "Do you want another transaction"
 #define TRIES 3
@@ -32,8 +33,8 @@ int main(void) {
     tty_mode(0);
     set_cr_noecho_mode();
     set_nodelay_mode();
-    signal( SIGINT, ctrl_c_handler );
-    signal( SIGQUIT, SIG_IGN);
+    signal( SIGINT, ctrl_c_handler );     // SIGINT key -> handling
+    signal( SIGQUIT, SIG_IGN);            // SIGQUIT key -> ignore
     response = get_response(ASK, TRIES);
     tty_mode(1);
 
@@ -84,7 +85,7 @@ void set_nodelay_mode() {
     fcntl(0, F_SETFL, termflags);
 }
 
-void ctrl_c_handler(int signum) {
+void ctrl_c_handler(int signum) {  // if SIGINT key press, restore original setting and exit
 
     tty_mode(1);
     exit(1);
