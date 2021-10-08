@@ -91,6 +91,6 @@ void tty_mode(int how) {
     }
     else {
         tcsetattr(0, TCSANOW, &original_mode);
-        fcntl(0, F_SETFL, origianl_flags);
+        fcntl(0, F_SETFL, original_flags);
     }
 }
