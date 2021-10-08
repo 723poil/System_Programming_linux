@@ -1,3 +1,10 @@
+/*
+file :
+author :
+datetime : 2021-10-08 10:40
+description :
+*/
+
 #include <stdio.h>
 #include <termios.h>
 
@@ -53,7 +60,7 @@ void tty_mode(int how) {
 
     static struct termios original_mode;
     if ( how == 0 ) {
-        tegetattr(0, &original_mode);
+        tcgetattr(0, &original_mode);
     }
     else {
         tcsetattr(0, TCSANOW, &original_mode);
