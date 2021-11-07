@@ -12,9 +12,10 @@ description : process with signal without using the wait function
 
 #define DELAY 5
 
+int newpid; // after changing to a global variable, it can also be used by handler
+
 int main() {
 
-    int newpid;
     void child_code(), parent_code();
 
     printf("before: mypid is %d\n", getpid());
@@ -26,7 +27,7 @@ int main() {
 	child_code(DELAY);
     }
     else {
-	parent_code(newpid);
+	parent_code();
     }
 
     return 0;
@@ -40,7 +41,7 @@ void child_code(int delay) {
     exit(17);
 }
 
-void parent_code(int childpid) {
+void parent_code() {
 
     void handler();
 
@@ -59,7 +60,8 @@ void handler(int sig_num) {
     int high_8, low_7, bit_7;
 
     wait_rv = wait(&child_status);
-    
+    printf("done waiting for %d. Wait returned: %d\n", newpid, wait_rv);
+
     high_8 = child_status >> 8;
     low_7 = child_status & 0x7F;
     bit_7 = child_status & 0x80;
