@@ -1,3 +1,9 @@
+/*
+file        : smsh.h
+author      : 2017110051_이상협
+datetime    : 2021-11-12 15:00
+description : header file for about smsh
+*/
 #define YES 1
 #define NO 0
 
