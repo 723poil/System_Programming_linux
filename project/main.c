@@ -86,17 +86,18 @@ int main(void) {
 
 void QUIT_handler() {
 
-    FILE *f;
-    remove("test");
+	remove("test");
+    
+	FILE *f;
     f = fopen("test", "a");
-    putwin(main_win, f);
+    
+	putwin(main_win, f);
     fclose(f);
     
     tty_mode(1);
     signal(SIGINT, SIG_DFL);
     signal(SIGQUIT, SIG_DFL);
     
-    clear();
     endwin();
     exit(1);
 }
@@ -125,8 +126,7 @@ void tty_mode(int how) {
 }
 
 void *menu_event() {
-	menu_win = newwin(5, WIDTH, 0, 0);
-	color_black(menu_win);
+	menu_win = newwin(HEIGHT, 5, 0, 0);
 	box(menu_win, 0, 0);
 	wrefresh(menu_win);
 }
@@ -153,17 +153,14 @@ void *draw_event() {
 	main_win = getwin(w);
 	fclose(w);
     box(main_win, 0, 0);
-    box(menu_win, 0, 0);
-    color_black(main_win);
-    wmove(main_win, cury, curx);
-    wrefresh(menu_win);
     wrefresh(main_win);
 
-    cs = 2;
 
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
+    color_black(main_win);
+	color_black(menu_win);
 
     int conti = 1;
 
@@ -178,25 +175,27 @@ void *draw_event() {
 void auto_set() {
 
     remove("test");
+
 	FILE *f;
 	f = fopen("test", "a");
+	
 	putwin(main_win, f);
 	fclose(f);
 }
 
 void color_black(WINDOW* win) {
 
-    //start_color();
-    //init_pair(1, COLOR_BLACK, COLOR_BLACK);
+    start_color();
+    init_pair(1, COLOR_WHITE, COLOR_BLACK);
 
     attron(COLOR_PAIR(1));
-    wbkgd(win, COLOR_PAIR(1));
+    bkgd(COLOR_PAIR(1));
     attroff(COLOR_PAIR(1));
 
-    //wmove(main_win, cury, curx);
-    box(win, 0, 0);
+    wmove(main_win, cury, curx);
+    box(main_win, 0, 0);
 
-    wrefresh(win);
+    wrefresh(main_win);
     refresh();
 }
 
@@ -207,8 +206,8 @@ void *key_event() {
     int conti = 1;
 
 	start_color();
-	init_pair(1, COLOR_WHITE, COLOR_BLACK);
-	init_pair(2, COLOR_BLACK, COLOR_WHITE);
+	init_pair(1, COLOR_BLACK, COLOR_WHITE);
+	init_pair(2, COLOR_WHITE, COLOR_BLACK);
 	init_pair(3, COLOR_BLUE, COLOR_RED);
 	init_pair(4, COLOR_YELLOW, COLOR_GREEN);
 	init_pair(5, COLOR_GREEN, COLOR_YELLOW);
