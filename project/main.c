@@ -53,12 +53,12 @@ void tty_mode(int how) {
     static int original_flags;
 
     if ( how == 0 ) {
-	tcgetattr(0, &original_mode);
-	original_flags = fcntl(0, F_GETFL);
+		tcgetattr(0, &original_mode);
+		original_flags = fcntl(0, F_GETFL);
     }
     else {
-	tcsetattr(0, TCSANOW, &original_mode);
-	fcntl(0, F_SETFL, original_flags);
+		tcsetattr(0, TCSANOW, &original_mode);
+		fcntl(0, F_SETFL, original_flags);
     }
 }
 
@@ -80,10 +80,11 @@ void *mouse_event() {
     color_black();
 
     int conti = 1;
+	int cs = 0;
 
     while(conti) {
-	pthread_t key_t;
-        pthread_create(&key_t, NULL, key_event, (void *)NULL);
+		pthread_t key_t;
+        pthread_create(&key_t, NULL, key_event, (void *)&cs);
         pthread_join(key_t, (void *)&conti);
     }
     return NULL;
@@ -105,86 +106,119 @@ void color_black() {
     refresh();
 }
 
-void *key_event() {
+void *key_event(void *cs) {
     
     int ch = getch();
     MEVENT event;
     int conti = 1;
+	int *cs = *cs;
+
+	start_color();
+	init_pair(1, COLOR_WHITE, COLOR_WHITE);
+	init_pair(2, COLOR_BLACK, COLOR_BLACK);
+	init_pair(3, COLOR_RED, COLOR_RED);
+	init_pair(4, COLOR_GREEN, COLOR_GREEN);
+	init_pair(5, COLOR_YELLOW, COLOR_YELLOW);
+	init_pair(6, COLOR_BLUE, COLOR_BLUE;
+	init_pair(7, COLOR_MAGENTA, COLOR_MAGENTA);
+	init_pair(8, COLOR_CYAN, COLOR_CYAN;
     
     if(ch == KEY_MOUSE) {
-	if(getmouse(&event) == OK) {
-	    if(event.bstate & BUTTON1_PRESSED) {
-		if(event.y-5 > 0 && event.y-5 < HEIGHT-1 && event.x < WIDTH-1 && event.x > 0) {
-	            cury = event.y - 5;
-		    curx = event.x;
-		    wmove(main_win, cury, curx);
-		    box(main_win, 0, 0);
-		    wrefresh(main_win);
+		if(getmouse(&event) == OK) {
+			if(event.bstate & BUTTON1_PRESSED) {
+				if(event.y-5 > 0 && event.y-5 < HEIGHT-1 && event.x < WIDTH-1 && event.x > 0) {
+					cury = event.y - 5;
+					curx = event.x;
+					wmove(main_win, cury, curx);
+					box(main_win, 0, 0);
+					wrefresh(main_win);
+				}
+			}
 		}
-	    }
-	}
     }
     else if (ch == KEY_DOWN) {
-	if(cury < HEIGHT-2) {
-	    cury = cury + 1;
-	}
-	else {
-	    cury = HEIGHT-2;
-	}
-	box(main_win, 0, 0);
-	wmove(main_win, cury, curx);
-	wrefresh(main_win);
+		if(cury < HEIGHT-2) {
+			cury = cury + 1;
+		}
+		else {
+			cury = HEIGHT-2;
+		}
+		box(main_win, 0, 0);
+		wmove(main_win, cury, curx);
+		wrefresh(main_win);
     }
     else if (ch == KEY_UP) {
-	if(cury > 1) {
-	    cury = cury - 1;
-	}
-	else {
-	    cury = 1;
-	}
-	box(main_win, 0, 0);
-	wmove(main_win, cury, curx);
-	wrefresh(main_win);
+		if(cury > 1) {
+			cury = cury - 1;
+		}
+		else {
+			cury = 1;
+		}
+		box(main_win, 0, 0);
+		wmove(main_win, cury, curx);
+		wrefresh(main_win);
     }
     else if (ch == KEY_RIGHT) {
-	if(curx < WIDTH-2) {
-	    curx = curx + 1;
-	}
-	else {
-	    curx = WIDTH-2;
-	}
-	box(main_win, 0, 0);
-	wmove(main_win, cury, curx);
-	wrefresh(main_win);
+		if(curx < WIDTH-2) {
+			curx = curx + 1;
+		}
+		else {
+			curx = WIDTH-2;
+		}
+		box(main_win, 0, 0);
+		wmove(main_win, cury, curx);
+		wrefresh(main_win);
     }
     else if (ch == KEY_LEFT) {
-	if(curx > 1) {
-	    curx = curx-1;
-	}
-	else {
-	    curx = 1;
-	}
-	box(main_win, 0, 0);
-	wmove(main_win, cury, curx);
-	wrefresh(main_win);
+		if(curx > 1) {
+			curx = curx-1;
+		}
+		else {
+			curx = 1;
+		}
+		box(main_win, 0, 0);
+		wmove(main_win, cury, curx);
+		wrefresh(main_win);
     }
     else if (ch == 'd') {
-	pthread_mutex_lock(&lock);
-        start_color();
-	init_pair(2, COLOR_BLUE, COLOR_GREEN);
-	wattron(main_win, COLOR_PAIR(2));
-	waddstr(main_win, " ");
-	wattroff(main_win, COLOR_PAIR(2));
-	box(main_win, 0, 0);
-	wmove(main_win, cury, curx);
-	wrefresh(main_win);
-	pthread_mutex_unlock(&lock);
+		pthread_mutex_lock(&lock);
+		wattron(main_win, COLOR_PAIR(cs));
+		waddstr(main_win, " ");
+		wattroff(main_win, COLOR_PAIR(cs));
+		box(main_win, 0, 0);
+		wmove(main_win, cury, curx);
+		wrefresh(main_win);
+		pthread_mutex_unlock(&lock);
     }
     else if (ch == 'q') {
 
-	endwin();
-	conti = 0;
-	return (void *)conti;
+		endwin();
+		conti = 0;
+		return (void *)conti;
     }
+	else if (ch == KEY_F(1)) {
+		*cs = 1;
+	}
+	else if (ch == KEY_F(2)) {
+		*cs = 2;
+	}
+	else if (ch == KEY_F(3)) {
+		*cs = 3;
+	}
+	else if (ch == KEY_F(4)) {
+		*cs = 4;
+	}
+	else if (ch == KEY_F(5)) {
+		*cs = 5;
+	}
+	else if (ch == KEY_F(6)) {
+		*cs = 6;
+	}
+	else if (ch == KEY_F(7)) {
+		*cs = 7;
+	}
+	else if (ch == KEY_F(8)) {
+		*cs = 8;
+	}
     return (void *)conti;
 }
