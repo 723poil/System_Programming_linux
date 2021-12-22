@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define WIDTH COLS
 #define HEIGHT LINES-5
@@ -20,7 +21,10 @@ int cury = 1;
 
 int cs = 1;
 
+char file_name[20];
+
 WINDOW *main_win;
+WINDOW *menu_win;
 
 void *draw_event();
 void *key_event();
@@ -30,6 +34,7 @@ void color_black();
 void QUIT_handler();
 int set_ticker(int);
 void auto_set();
+//void search_file():
 
 int main(void) {
    
@@ -40,6 +45,8 @@ int main(void) {
 
     pthread_t mouse_thread;
 
+    
+
     pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
     pthread_join(mouse_thread, NULL);
 
@@ -47,6 +54,35 @@ int main(void) {
 
     return 0;
 }
+
+/* void search_file() {
+
+	int thepipe[2];
+	int pid;
+
+	if (pipe(thepipe) == -1) {
+		perror("pipe");
+		exit(2);
+	}
+
+	if( (pid = fork()) == -1 ) {
+		perror("fork");
+		exit(2);
+	}
+	else if ( pid > 0 ) {
+		// children
+		close(thepipe[0]);
+		dup2(thepipe[1], 1);
+		close(thepipe[1]);
+
+		execlp("ls", "ls", "draw_file", NULL);
+	}
+	else {
+		wait(NULL);
+		
+
+	}
+}*/
 
 void QUIT_handler() {
 
@@ -88,7 +124,15 @@ void tty_mode(int how) {
     }
 }
 
+void *menu_event() {
+	menu_win = newwin(HEIGHT, 5, 0, 0);
+	box(menu_win, 0, 0);
+	wrefresh(menu_win);
+}
+
 void *draw_event() {
+
+	void *menu_event();
 
     initscr();
     noecho();
@@ -98,6 +142,10 @@ void *draw_event() {
 
 	signal( SIGALRM, auto_set );
 
+	pthread_t menu;
+	pthread_create(&menu, NULL, menu_event, (void *) NULL);
+	pthread_join(menu, (void *)NULL);
+
     //main_win = newwin(HEIGHT, WIDTH, starty, startx);
 	FILE *w;
 	w = fopen("test", "r");
@@ -105,6 +153,7 @@ void *draw_event() {
 	fclose(w);
     box(main_win, 0, 0);
     wrefresh(main_win);
+
 
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
@@ -123,7 +172,7 @@ void *draw_event() {
 
 void auto_set() {
 
-        remove("test");
+    remove("test");
 	FILE *f;
 	f = fopen("test", "a");
 	putwin(main_win, f);
