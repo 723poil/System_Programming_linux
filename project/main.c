@@ -125,15 +125,34 @@ void tty_mode(int how) {
     }
 }
 
-void *menu_event() {
-	menu_win = newwin(HEIGHT, 5, 0, 0);
+void menu_event() {
+	menu_win = newwin(5, WIDTH, 0, 0);
 	box(menu_win, 0, 0);
+	color_black(menu_win);
+	wrefresh(menu_win);
+
+	wmove(menu_win, 1, 20);
+	waddstr(menu_win, "F1 - ");
+	wmove(menu_win, 2, 20);
+	waddstr(menu_win, "F5 - ");
+	wmove(menu_win, 1, 28);
+	waddstr(menu_win, "F2 - ");
+	wmove(menu_win, 1, 36);
+	waddstr(menu_win, "F3 - ");
+	wmove(menu_win, 1, 44);
+	waddstr(menu_win, "F4 - ");
+	wmove(menu_win, 2, 28);
+	waddstr(menu_win, "F6 - ");
+	wmove(menu_win, 2, 36);
+	waddstr(menu_win, "F7 - ");
+	wmove(menu_win, 2, 44);
+	waddstr(menu_win, "F8 - ");
 	wrefresh(menu_win);
 }
 
 void *draw_event() {
 
-	void *menu_event();
+	void menu_event();
 
     initscr();
     noecho();
@@ -141,11 +160,7 @@ void *draw_event() {
 
 	set_ticker(600000);
 
-	signal( SIGALRM, auto_set );
-
-	pthread_t menu;
-	pthread_create(&menu, NULL, menu_event, (void *) NULL);
-	pthread_join(menu, (void *)NULL);
+	signal( SIGALRM, auto_set);
 
     //main_win = newwin(HEIGHT, WIDTH, starty, startx);
 	FILE *w;
@@ -155,12 +170,19 @@ void *draw_event() {
     box(main_win, 0, 0);
     wrefresh(main_win);
 
+    menu_event();
 
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
     color_black(main_win);
-	color_black(menu_win);
+    color_black(menu_win);
+   
+    refresh(); 
+    box(menu_win, 0, 0);
+    wrefresh(menu_win);
+    wmove(main_win, cury, curx);
+    wrefresh(main_win);
 
     int conti = 1;
 
@@ -185,18 +207,20 @@ void auto_set() {
 
 void color_black(WINDOW* win) {
 
+    pthread_mutex_lock(&lock);
     start_color();
-    init_pair(1, COLOR_WHITE, COLOR_BLACK);
+    init_pair(0, COLOR_BLACK, COLOR_BLACK);
+    cs = 0;
+    //attron(COLOR_PAIR(1));
+    bkgd(COLOR_PAIR(cs));
+    //attroff(COLOR_PAIR(1));
+    cs = 1;
 
-    attron(COLOR_PAIR(1));
-    bkgd(COLOR_PAIR(1));
-    attroff(COLOR_PAIR(1));
+    box(win, 0, 0);
 
-    wmove(main_win, cury, curx);
-    box(main_win, 0, 0);
+    wrefresh(win);
 
-    wrefresh(main_win);
-    refresh();
+    pthread_mutex_unlock(&lock);
 }
 
 void *key_event() {
