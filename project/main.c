@@ -129,6 +129,8 @@ void menu_event() {
 	color_black(menu_win);
 	wrefresh(menu_win);
 
+	wmove(menu_win, 1, 5);
+	waddstr(menu_win, "FILE NAME - test");
 	wmove(menu_win, 1, 20);
 	waddstr(menu_win, "F1 - ");
 	wattron(menu_win, COLOR_PAIR(1));
