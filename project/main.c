@@ -45,7 +45,16 @@ int main(void) {
 
     pthread_t mouse_thread;
 
-    
+    start_color();
+	init_pair(0, COLOR_BLACK, COLOR_BLACK);
+	init_pair(1, COLOR_BLACK, COLOR_WHITE);
+	init_pair(2, COLOR_WHITE, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_RED);
+	init_pair(4, COLOR_YELLOW, COLOR_GREEN);
+	init_pair(5, COLOR_GREEN, COLOR_YELLOW);
+	init_pair(6, COLOR_RED, COLOR_BLUE);
+	init_pair(7, COLOR_CYAN, COLOR_MAGENTA);
+	init_pair(8, COLOR_MAGENTA, COLOR_CYAN);
 
     pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
     pthread_join(mouse_thread, NULL);
@@ -133,15 +142,19 @@ void menu_event() {
 
 	wmove(menu_win, 1, 20);
 	waddstr(menu_win, "F1 - ");
+	wmove(menu_win, 1, 26);
+	wattron(menu_win, COLOR_PAIR(1));
+	waddstr(menu_win, " ");
+	wattroff(menu_win, COLOR_PARI(1));
 	wmove(menu_win, 2, 20);
-	waddstr(menu_win, "F5 - ");
-	wmove(menu_win, 1, 28);
 	waddstr(menu_win, "F2 - ");
 	wmove(menu_win, 1, 36);
 	waddstr(menu_win, "F3 - ");
 	wmove(menu_win, 1, 44);
 	waddstr(menu_win, "F4 - ");
 	wmove(menu_win, 2, 28);
+	waddstr(menu_win, "F5 - ");
+	wmove(menu_win, 1, 28);
 	waddstr(menu_win, "F6 - ");
 	wmove(menu_win, 2, 36);
 	waddstr(menu_win, "F7 - ");
@@ -208,12 +221,11 @@ void auto_set() {
 void color_black(WINDOW* win) {
 
     pthread_mutex_lock(&lock);
-    start_color();
-    init_pair(0, COLOR_BLACK, COLOR_BLACK);
+    
     cs = 0;
-    //attron(COLOR_PAIR(1));
+
     bkgd(COLOR_PAIR(cs));
-    //attroff(COLOR_PAIR(1));
+
     cs = 1;
 
     box(win, 0, 0);
@@ -228,16 +240,6 @@ void *key_event() {
     int ch = getch();
     MEVENT event;
     int conti = 1;
-
-	start_color();
-	init_pair(1, COLOR_BLACK, COLOR_WHITE);
-	init_pair(2, COLOR_WHITE, COLOR_BLACK);
-	init_pair(3, COLOR_BLUE, COLOR_RED);
-	init_pair(4, COLOR_YELLOW, COLOR_GREEN);
-	init_pair(5, COLOR_GREEN, COLOR_YELLOW);
-	init_pair(6, COLOR_RED, COLOR_BLUE);
-	init_pair(7, COLOR_CYAN, COLOR_MAGENTA);
-	init_pair(8, COLOR_MAGENTA, COLOR_CYAN);
     
     if(ch == KEY_MOUSE) {
 		if(getmouse(&event) == OK) {
