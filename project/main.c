@@ -16,6 +16,8 @@ int starty = 5;
 int curx = 1;
 int cury = 1;
 
+int cs = 1;
+
 WINDOW *main_win;
 
 void *mouse_event();
@@ -64,8 +66,6 @@ void tty_mode(int how) {
 
 void *mouse_event() {
 
-    int ch;
-
     initscr();
     noecho();
     keypad(stdscr, TRUE);
@@ -80,11 +80,10 @@ void *mouse_event() {
     color_black();
 
     int conti = 1;
-	int cs = 0;
 
     while(conti) {
 		pthread_t key_t;
-        pthread_create(&key_t, NULL, key_event, (void *)&cs);
+        pthread_create(&key_t, NULL, key_event, (void *)NULL);
         pthread_join(key_t, (void *)&conti);
     }
     return NULL;
@@ -106,22 +105,21 @@ void color_black() {
     refresh();
 }
 
-void *key_event(void *cs) {
+void *key_event() {
     
     int ch = getch();
     MEVENT event;
     int conti = 1;
-	int *cs = *cs;
 
 	start_color();
-	init_pair(1, COLOR_WHITE, COLOR_WHITE);
-	init_pair(2, COLOR_BLACK, COLOR_BLACK);
-	init_pair(3, COLOR_RED, COLOR_RED);
-	init_pair(4, COLOR_GREEN, COLOR_GREEN);
-	init_pair(5, COLOR_YELLOW, COLOR_YELLOW);
-	init_pair(6, COLOR_BLUE, COLOR_BLUE;
-	init_pair(7, COLOR_MAGENTA, COLOR_MAGENTA);
-	init_pair(8, COLOR_CYAN, COLOR_CYAN;
+	init_pair(1, COLOR_BLACK, COLOR_WHITE);
+	init_pair(2, COLOR_WHITE, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_RED);
+	init_pair(4, COLOR_YELLOW, COLOR_GREEN);
+	init_pair(5, COLOR_GREEN, COLOR_YELLOW);
+	init_pair(6, COLOR_RED, COLOR_BLUE);
+	init_pair(7, COLOR_CYAN, COLOR_MAGENTA);
+	init_pair(8, COLOR_MAGENTA, COLOR_CYAN);
     
     if(ch == KEY_MOUSE) {
 		if(getmouse(&event) == OK) {
@@ -197,28 +195,28 @@ void *key_event(void *cs) {
 		return (void *)conti;
     }
 	else if (ch == KEY_F(1)) {
-		*cs = 1;
+		cs = 1;
 	}
 	else if (ch == KEY_F(2)) {
-		*cs = 2;
+		cs = 2;
 	}
 	else if (ch == KEY_F(3)) {
-		*cs = 3;
+		cs = 3;
 	}
 	else if (ch == KEY_F(4)) {
-		*cs = 4;
+		cs = 4;
 	}
 	else if (ch == KEY_F(5)) {
-		*cs = 5;
+		cs = 5;
 	}
 	else if (ch == KEY_F(6)) {
-		*cs = 6;
+		cs = 6;
 	}
 	else if (ch == KEY_F(7)) {
-		*cs = 7;
+		cs = 7;
 	}
 	else if (ch == KEY_F(8)) {
-		*cs = 8;
+		cs = 8;
 	}
     return (void *)conti;
 }
