@@ -22,7 +22,7 @@ int cs = 1;
 
 WINDOW *main_win;
 
-void *mouse_event();
+void *draw_event();
 void *key_event();
 void set_nodelay_mode();
 void tty_mode(int );
@@ -40,7 +40,7 @@ int main(void) {
 
     pthread_t mouse_thread;
 
-    pthread_create(&mouse_thread, NULL, mouse_event, (void *)NULL);
+    pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
     pthread_join(mouse_thread, NULL);
 
     tty_mode(1);
@@ -51,6 +51,7 @@ int main(void) {
 void QUIT_handler() {
 
     FILE *f;
+    remove("test");
     f = fopen("test", "a");
     putwin(main_win, f);
     fclose(f);
@@ -87,18 +88,21 @@ void tty_mode(int how) {
     }
 }
 
-void *mouse_event() {
+void *draw_event() {
 
     initscr();
     noecho();
     keypad(stdscr, TRUE);
 
-	set_ticker(1000);
+	set_ticker(600000);
 
 	signal( SIGALRM, auto_set );
 
     //main_win = newwin(HEIGHT, WIDTH, starty, startx);
-	main_win = getwin("test");
+	FILE *w;
+	w = fopen("test", "r");
+	main_win = getwin(w);
+	fclose(w);
     box(main_win, 0, 0);
     wrefresh(main_win);
 
@@ -119,6 +123,7 @@ void *mouse_event() {
 
 void auto_set() {
 
+        remove("test");
 	FILE *f;
 	f = fopen("test", "a");
 	putwin(main_win, f);
