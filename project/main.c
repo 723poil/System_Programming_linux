@@ -4,6 +4,8 @@
 #include <termios.h>
 #include <pthread.h>
 #include <fcntl.h>
+#include <signal.h>
+#include <stdlib.h>
 
 #define WIDTH COLS
 #define HEIGHT LINES-5
@@ -25,11 +27,14 @@ void *key_event();
 void set_nodelay_mode();
 void tty_mode(int );
 void color_black();
+void QUIT_handler();
 
 int main(void) {
    
     tty_mode(0);
     set_nodelay_mode();
+    signal(SIGINT, SIG_IGN);
+    signal(SIGQUIT, QUIT_handler);
 
     pthread_t mouse_thread;
 
@@ -39,6 +44,22 @@ int main(void) {
     tty_mode(1);
 
     return 0;
+}
+
+void QUIT_handler() {
+
+    FILE *f;
+    f = fopen("test", "a");
+    putwin(main_win, f);
+    fclose(f);
+    
+    tty_mode(1);
+    signal(SIGINT, SIG_DFL);
+    signal(SIGQUIT, SIG_DFL);
+    
+    clear();
+    endwin();
+    exit(1);
 }
 
 void set_nodelay_mode() {
