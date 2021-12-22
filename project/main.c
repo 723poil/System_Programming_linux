@@ -28,6 +28,8 @@ void set_nodelay_mode();
 void tty_mode(int );
 void color_black();
 void QUIT_handler();
+int set_ticker(int);
+void auto_set();
 
 int main(void) {
    
@@ -91,7 +93,12 @@ void *mouse_event() {
     noecho();
     keypad(stdscr, TRUE);
 
-    main_win = newwin(HEIGHT, WIDTH, starty, startx);
+	set_ticker(1000);
+
+	signal( SIGALRM, auto_set );
+
+    //main_win = newwin(HEIGHT, WIDTH, starty, startx);
+	main_win = getwin("test");
     box(main_win, 0, 0);
     wrefresh(main_win);
 
@@ -108,6 +115,14 @@ void *mouse_event() {
         pthread_join(key_t, (void *)&conti);
     }
     return NULL;
+}
+
+void auto_set() {
+
+	FILE *f;
+	f = fopen("test", "a");
+	putwin(main_win, f);
+	fclose(f);
 }
 
 void color_black() {
