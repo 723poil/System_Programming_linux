@@ -30,7 +30,7 @@ void *draw_event();
 void *key_event();
 void set_nodelay_mode();
 void tty_mode(int );
-void color_black();
+void color_black(WINDOW * win);
 void QUIT_handler();
 int set_ticker(int);
 void auto_set();
@@ -158,7 +158,8 @@ void *draw_event() {
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
-    color_black();
+    color_black(main_win);
+	color_black(menu_win);
 
     int conti = 1;
 
@@ -179,7 +180,7 @@ void auto_set() {
 	fclose(f);
 }
 
-void color_black() {
+void color_black(WINDOW* win) {
 
     start_color();
     init_pair(1, COLOR_WHITE, COLOR_BLACK);
