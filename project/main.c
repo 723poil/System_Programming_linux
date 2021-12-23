@@ -90,6 +90,7 @@ void search_file() {
 void choice_file() {
 
 	initscr();
+	clear();
 
     // struct filename {
 	// 	int i;
@@ -106,6 +107,7 @@ void choice_file() {
     wmove(choice_win, 1, 1);
 	waddstr(choice_win, file_name);
 	wrefresh(choice_win);
+	getch();
 
 }
 
