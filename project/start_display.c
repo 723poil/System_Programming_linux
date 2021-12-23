@@ -107,7 +107,7 @@ void choice_file() {
 
 	while(1) {
 		start_bool = first_key_event();
-        mvwprintw(choice_win, 13, 19, start_bool);
+        mvwprintw(choice_win, 13, 19, &start_bool);
         wrefresh(choice_win);
         if (start_bool == 0) {
             break;
