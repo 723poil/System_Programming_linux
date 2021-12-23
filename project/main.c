@@ -278,7 +278,6 @@ void auto_set() {
 		
 		putwin(main_win, f);
 		fclose(f);
-		exit(1);
 	}
 }
 
