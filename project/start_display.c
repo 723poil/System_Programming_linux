@@ -101,18 +101,14 @@ void choice_file() {
 		// wrefresh(choice_win);
 	}
 	wmove(choice_win, 1, 1);
-	refresh();
 	//box(choice_win, 0, 0);
 	wrefresh(choice_win);
-	wgetch(choice_win);
 	
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
     int bol = 1;
 	while(bol) {
-		wmove(choice_win, 1, 1);
-		wrefresh(choice_win);
 		pthread_t t;
 		pthread_create(&t, NULL, first_key_event, &bol);
 		pthread_join(t, NULL);
