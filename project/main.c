@@ -83,6 +83,8 @@ void QUIT_handler() {
 	signal(SIGINT, SIG_DFL);
     signal(SIGQUIT, SIG_DFL);
 	tty_mode(1);
+
+	endwin();
 }
 
 void set_nodelay_mode() {
