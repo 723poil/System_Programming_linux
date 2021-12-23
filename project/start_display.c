@@ -103,6 +103,7 @@ void choice_file() {
 		wrefresh(choice_win);
 	}
 	wmove(choice_win, 1, 1);
+    refresh();
 	//box(choice_win, 0, 0);
 	wrefresh(choice_win);
 	
