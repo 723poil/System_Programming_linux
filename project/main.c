@@ -37,7 +37,7 @@ void QUIT_handler();
 int set_ticker(int);
 void auto_set();
 void choice_file();
-void search_file():
+void search_file();
 
 int main(void) {
    
