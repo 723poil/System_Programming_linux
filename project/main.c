@@ -120,7 +120,7 @@ void choice_file() {
 		// wmove(choice_win, i, 19);
 		// waddstr(choice_win, i);
 	}
-	refresh();
+	// refresh();
 	box(choice_win, 0, 0);
 	wrefresh(choice_win);
 	
