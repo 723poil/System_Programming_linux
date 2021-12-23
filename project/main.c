@@ -59,13 +59,6 @@ int main(int ac, char *av[]) {
 
 		strcpy(file_name, av[1]);
 		strcat(file_link, file_name);
-
-		FILE *f;
-
-		f = fopen(file_link, "w");
-		main_win = newwin(HEIGHT, WIDTH, starty, startx);
-		putwin(main_win, f);
-		fclose(f);
 	}
 
     tty_mode(0);
@@ -238,9 +231,12 @@ void *draw_event() {
 		w = fopen(file_link, "r");
 		main_win = getwin(w);
 		fclose(w);
-		box(main_win, 0, 0);
-		wrefresh(main_win);
 	}
+	else {
+		main_win = newwin(HEIGHT, WIDTH, starty, startx);
+	}
+	box(main_win, 0, 0);
+	wrefresh(main_win);
 
     menu_event();
 
