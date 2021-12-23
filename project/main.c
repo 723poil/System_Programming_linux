@@ -81,7 +81,7 @@ int main(int ac, char *av[]) {
 		close(thepipe[1]);
 		read(thepipe[0], file_ls, BUFSIZ);
 
-		sub_win = newwin(LINES, 20, 0, WIDTH-20);
+		sub_win = newwin(LINES, 15, 0, WIDTH-19);
 		box(sub_win, 0, 0);
 		wmove(sub_win, 1, 1);
 		waddstr(sub_win, file_ls);
