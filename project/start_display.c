@@ -88,7 +88,7 @@ void choice_file() {
 
     // mvwprintw(choice_win, 1, 5, buffer);
 
-	char *ptr = strtok(buffer, " ");
+	char *ptr = strtok(buffer, "\n");
 
 	while(ptr != NULL) {
 		strcpy(files[filenum], ptr); 
@@ -98,7 +98,7 @@ void choice_file() {
             mvwprintw(choice_win, filenum, 1, files[filenum-1]);
             getch();
         }
-		ptr = strtok(NULL, " ");
+		ptr = strtok(NULL, "\n");
 	}
     wrefresh(choice_win);
 
