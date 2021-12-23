@@ -80,6 +80,7 @@ int main(int ac, char *av[]) {
 
 		close(thepipe[1]);
 		read(thepipe[0], file_ls, BUFSIZ);
+		close(thepipe[0]);
 
    		pthread_t mouse_thread;
 	
@@ -148,7 +149,7 @@ void menu_event() {
 		perror(file_link);
 	}
 
-	menu_win = newwin(5, WIDTH-21, 0, 0);
+	menu_win = newwin(5, WIDTH-20, 0, 0);
 	box(menu_win, 0, 0);
 	color_black(menu_win);
 	wrefresh(menu_win);
@@ -241,17 +242,16 @@ void *draw_event() {
 		fclose(w);
 	}
 	else {
-		main_win = newwin(HEIGHT, WIDTH-21, starty, startx);
+		main_win = newwin(HEIGHT, WIDTH-20, starty, startx);
 	}
 	box(main_win, 0, 0);
 	wrefresh(main_win);
 
     menu_event();
 
-	sub_win = newwin(LINES, 15, 0, WIDTH-19);
+	sub_win = newwin(LINES, 18, 0, WIDTH-19);
 	box(sub_win, 0, 0);
 	wmove(sub_win, 1, 1);
-	waddstr(sub_win, file_ls);
 	wrefresh(sub_win);
 
     mousemask(BUTTON1_PRESSED, NULL);
@@ -265,6 +265,7 @@ void *draw_event() {
     box(menu_win, 0, 0);
     wrefresh(menu_win);
 	box(sub_win, 0, 0);
+	waddstr(sub_win, file_ls);
 	wrefresh(sub_win);
     wmove(main_win, cury, curx);
     wrefresh(main_win);
