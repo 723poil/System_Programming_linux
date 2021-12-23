@@ -103,13 +103,12 @@ void QUIT_handler() {
 
 			write(stdout, 11+ctime(&info.st_mtim), BUFSIZ);
 		}
-	    exit(17);
+        conti = 0;
 	}
 	else {
-		wait(NULL);
 		char thetime[BUFSIZ] = " ";
 		read(thepipe[0], thetime, BUFSIZ);
-		wmove(menu_win, 2, WIDTH - 10);
+		wmove(menu_win, 2, WIDTH - 12);
 		waddstr(menu_win, thetime);
 		wrefresh(menu_win);
 		wmove(main_win, cury, curx);
