@@ -109,7 +109,6 @@ void QUIT_handler() {
 		signal(SIGQUIT, SIG_DFL);
 		
 		endwin();
-		exit(1);
 	}
 	else {
 		char thetime[BUFSIZ] = " ";
