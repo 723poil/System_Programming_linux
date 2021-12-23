@@ -32,8 +32,6 @@ int thepipe[2];
 char file_name[20] = "";
 char file_link[25] = "draw/";
 
-int quit_handler = 1;
-
 WINDOW *main_win;
 WINDOW *menu_win;
 WINDOW *choice_win;
@@ -105,7 +103,9 @@ void QUIT_handler() {
 
 			write(stdout, 11+ctime(&info.st_mtim), BUFSIZ);
 		}
-        quit_handler = 0;
+		close(0);
+		close(1);
+		close(2);
 	}
 	else {
 		char thetime[BUFSIZ] = " ";
@@ -264,9 +264,6 @@ void *draw_event() {
 		pthread_t key_t;
         pthread_create(&key_t, NULL, key_event, (void *)NULL);
         pthread_join(key_t, (void *)&conti);
-		if (quit_handler == 0) {
-			conti = 0;
-		}
     }
     return NULL;
 }
