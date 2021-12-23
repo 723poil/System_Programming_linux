@@ -119,8 +119,10 @@ void choice_file() {
 	for (int i = 1; i <= filenum; i++) {
         wmove(choice_win, i, 1);
 		waddstr(choice_win, files[i-1]);
-		// wmove(choice_win, i, 19);
-		// waddstr(choice_win, i);
+		wrefresh(choice_win);
+		wmove(choice_win, i, 19);
+		waddstr(choice_win, i);
+		wrefresh(choice_win);
 	}
 	refresh();
 	box(choice_win, 0, 0);
