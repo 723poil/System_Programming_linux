@@ -112,7 +112,8 @@ void choice_file() {
 	fd = open("title", O_WRONLY);
 
 	while(ptr != NULL) {
-		strcpy(files[filenum], ptr);
+		strcpy(files[filenum], ptr); 
+		files[filenum][strlen(ptr)] = '\0';
 		write(fd, files[filenum], strlen(ptr));
 		//files[filenum] = ptr;
 		filenum += 1;
