@@ -253,7 +253,6 @@ void *draw_event() {
 	wmove(sub_win, 1, 1);
 	waddstr(sub_win, file_ls);
 	wrefresh(sub_win);
-	refresh();
 
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
