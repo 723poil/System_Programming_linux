@@ -112,7 +112,7 @@ void QUIT_handler() {
 	}
 	else {
 		char thetime[BUFSIZ] = " ";
-		read(thepipe[0], thetime, BUFSIZ);
+		//read(thepipe[0], thetime, BUFSIZ);
 		wmove(menu_win, 2, WIDTH - 10);
 		waddstr(menu_win, thetime);
 		wrefresh(menu_win);
@@ -145,6 +145,13 @@ void tty_mode(int how) {
 }
 
 void menu_event() {
+
+	struct stat info;
+
+	if (stat(file_link, &info) == -1) {
+		perror(file_link);
+	}
+
 	menu_win = newwin(5, WIDTH, 0, 0);
 	box(menu_win, 0, 0);
 	color_black(menu_win);
@@ -194,6 +201,8 @@ void menu_event() {
 	wattron(menu_win, COLOR_PAIR(8));
 	waddstr(menu_win, " ");
 	wattroff(menu_win, COLOR_PAIR(8));
+	wmove(menu_win, 2, WIDTH-10);
+	waddstr(menu_win, 11+ctime(&imfo->mtim));
 
 	wmove(menu_win, 1, 60);
 	waddstr(menu_win, "d - draw | Ctrl+\\ - save and exit | q - not save and exit");
