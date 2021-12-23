@@ -120,7 +120,7 @@ void choice_file() {
         wmove(choice_win, i, 1);
 		waddstr(choice_win, files[i-1]);
 		wrefresh(choice_win);
-		wmove(choice_win, i, 19);
+		wmove(choice_win, i, 17);
 		waddstr(choice_win, i);
 		wrefresh(choice_win);
 	}
