@@ -118,6 +118,7 @@ void choice_file() {
         wmove(choice_win, i, 1);
 		waddstr(choice_win, files[i-1]);
 	}
+	refresh();
 	box(choice_win, 0, 0);
 	wrefresh(choice_win);
 	
