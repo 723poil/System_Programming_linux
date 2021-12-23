@@ -83,9 +83,8 @@ int main(int ac, char *av[]) {
 	else {
 		sub_win = newwin(LINES, 20, 0, WIDTH-20);
 		box(sub_win, 0, 0);
-		refresh();
 		wrefresh(sub_win);
-
+		refresh();
 	}
 
     return 0;
@@ -140,7 +139,7 @@ void menu_event() {
 		perror(file_link);
 	}
 
-	menu_win = newwin(5, WIDTH-22, 0, 0);
+	menu_win = newwin(5, WIDTH-21, 0, 0);
 	box(menu_win, 0, 0);
 	color_black(menu_win);
 	wrefresh(menu_win);
@@ -189,7 +188,7 @@ void menu_event() {
 	wattron(menu_win, COLOR_PAIR(8));
 	waddstr(menu_win, " ");
 	wattroff(menu_win, COLOR_PAIR(8));
-	wmove(menu_win, 2, WIDTH-47);
+	wmove(menu_win, 2, WIDTH-48);
 	waddstr(menu_win, 11+ctime(&info.st_mtim));
 
 	wmove(menu_win, 1, 60);
@@ -279,7 +278,7 @@ void auto_set() {
 	}
 	else {
 		pthread_mutex_lock(&lock);
-		wmove(menu_win, 2, WIDTH - 47);
+		wmove(menu_win, 2, WIDTH - 48);
 		waddstr(menu_win, 11+ctime(&info.st_mtim));
 		wrefresh(menu_win);
 		wmove(main_win, cury, curx);
