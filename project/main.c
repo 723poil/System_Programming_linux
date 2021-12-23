@@ -51,8 +51,9 @@ int main(void) {
 
     choice_file();
 
-    pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
-    pthread_join(mouse_thread, NULL);
+	
+    // pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
+    // pthread_join(mouse_thread, NULL);
 
     tty_mode(1);
 
