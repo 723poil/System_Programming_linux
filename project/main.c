@@ -50,7 +50,7 @@ int main(int ac, char av[]) {
     signal(SIGINT, SIG_IGN);
     signal(SIGQUIT, QUIT_handler);
 
-    strncpy(file_name, av[1], strlen(av[1]));
+    strncpy(file_name, av[1], strlen(&av[1]));
 
     pthread_t mouse_thread;
 	
