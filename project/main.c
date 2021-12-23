@@ -100,7 +100,7 @@ void choice_file() {
 
 	search_file();
 
-	choice_win = newwin(HEIGHT - 5, 25, 5, 20);
+	choice_win = newwin(HEIGHT - 5, 25, 5, 40);
 	box(choice_win, 0, 0);
 	
     char buffer[BUFSIZ];
