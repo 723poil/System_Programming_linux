@@ -112,6 +112,9 @@ void choice_file() {
         if (start_bool == 0) {
             break;
         }
+        else if (start_bool == -1) {
+            exit(1);
+        }
 	}
 }
 
@@ -128,17 +131,15 @@ int first_key_event() {
 					strcpy(file_name, files[event.y - 6]);
 					snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
 					clear();
-					endwin();
-                    conti = 0;
-                    return conti;
+					endwin(); 
+                    return 0;
 				}
 			}
 		}
 	}
     else if (ch == 'q') {
         endwin();
-        conti = 0;
-        return conti;
+        return -1;
     }
-    return conti;
+    return 1;
 }
