@@ -113,7 +113,7 @@ void choice_file() {
             continue;
         }
         else if (start_bool == -1) {
-            exit(1);
+            continue;
         }
 	}
 }
