@@ -79,7 +79,7 @@ void search_file() {
 		dup2(thepipe[1], 1);
 		close(thepipe[1]);
 
-		execlp("ls", "ls", "draw_file", NULL);
+		execlp("ls", "ls", "draw", NULL);
 	}
 	else {
 		wait(NULL);
