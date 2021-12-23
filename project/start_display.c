@@ -109,17 +109,17 @@ void choice_file() {
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
-    int bool = 1;
-	while(bool) {
+    int bol = 1;
+	while(bol) {
 		wmove(choice_win, 1, 1);
 		wrefresh(choice_win);
 		pthread_t t;
-		pthread_create(&t, NULL, first_key_event, (int *)&bool);
+		pthread_create(&t, NULL, first_key_event, &bol);
 		pthread_join(t, NULL);
 	}
 }
 
-void *first_key_event(int *bool) {
+void *first_key_event(int *bol) {
 	int ch = getch();
         MEVENT event;
 
@@ -136,7 +136,7 @@ void *first_key_event(int *bool) {
 						snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
 						clear();
 						endwin();
-						bool = 0;
+						*bol = 0;
                         return NULL;
 					}
 				}
