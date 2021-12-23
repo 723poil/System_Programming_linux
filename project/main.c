@@ -122,8 +122,6 @@ void choice_file() {
 		wrefresh(choice_win);
 	}
 	refresh();
-	box(choice_win, 0, 0);
-	wrefresh(choice_win);
 	
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
