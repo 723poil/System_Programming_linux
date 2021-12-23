@@ -33,8 +33,6 @@ int main(void) {
     signal(SIGINT, SIG_IGN);
     //signal(SIGQUIT, QUIT_handler);
 
-    pthread_t mouse_thread;
-
     choice_file();
 
     //tty_mode(1);
@@ -99,7 +97,7 @@ void choice_file() {
 	}
     wrefresh(choice_win);
 
-	wmove(choice_win, 1, 1);
+	// wmove(choice_win, 1, 1);
 	box(choice_win, 0, 0);
 	wrefresh(choice_win);
 
