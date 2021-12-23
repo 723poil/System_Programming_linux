@@ -107,14 +107,14 @@ void choice_file() {
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
-    int bol = 1;
-	while(bol) {
-		pthread_t t;
-		pthread_create(&t, NULL, first_key_event, &bol);
-		pthread_join(t, NULL);
-        // mvwprintw(choice_win, 12, 23, bol);
-        // wrefresh(choice_win);
-	}
+    // int bol = 1;
+	// while(bol) {
+	// 	pthread_t t;
+	// 	pthread_create(&t, NULL, first_key_event, &bol);
+	// 	pthread_join(t, NULL);
+    //     // mvwprintw(choice_win, 12, 23, bol);
+    //     // wrefresh(choice_win);
+	// }
     return NULL;
 }
 
