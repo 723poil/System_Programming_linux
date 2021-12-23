@@ -241,7 +241,7 @@ void auto_set() {
 	remove(file_link);
 
 	FILE *f;
-	f = fopen(file_link, "a");
+	f = fopen(file_link, "w");
 		
 	putwin(main_win, f);
 	fclose(f);
