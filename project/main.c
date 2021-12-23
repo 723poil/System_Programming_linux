@@ -113,7 +113,7 @@ void QUIT_handler() {
 	}
 	else {
 		char thetime[BUFSIZ] = " ";
-		// read(thepipe[0], thetime, BUFSIZ);
+		read(thepipe[0], thetime, BUFSIZ);
 		wmove(menu_win, 2, WIDTH - 10);
 		waddstr(menu_win, thetime);
 		wrefresh(menu_win);
