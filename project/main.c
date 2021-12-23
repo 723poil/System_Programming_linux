@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 #define WIDTH COLS
 #define HEIGHT LINES-5
@@ -70,20 +72,52 @@ int main(int ac, char *av[]) {
 
 void QUIT_handler() {
 
-	remove(file_link);
-    
-	FILE *f;
-    f = fopen(file_link, "a");
-    
-	putwin(main_win, f);
-    fclose(f);
-    
-    tty_mode(1);
-    signal(SIGINT, SIG_DFL);
-    signal(SIGQUIT, SIG_DFL);
-    
-    endwin();
-    exit(1);
+    int pid;
+
+	if ( pipe(thepipe) == -1 ) {
+		perror("pipe");
+	}
+
+	if ( (pid = fork()) == -1) {
+		perror("fork");
+	}
+	else if ( pid > 0 ) {
+
+		remove(file_link);
+		
+		FILE *f;
+		f = fopen(file_link, "a");
+		
+		putwin(main_win, f);
+		fclose(f);
+
+		struct stat info;
+
+		if (stat(file_link, &info) == -1) {
+			perror(file_link);
+		}
+		else {
+			close(thepipe[0]);
+			dup2(thepipe[1], 1);
+			close(thepipe[1]);
+
+			write(stdout, 11+ctime(&info_p->st_mtim), 5);
+		}
+		
+		tty_mode(1);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		
+		endwin();
+		exit(1);
+	}
+	else {
+		char thetime[5];
+		read(thepipe[0], thetime, 5);
+		wmove(menu_win, 2, WIDTH - 10);
+		waddstr(menu_win, thetime);
+		wrefresh(menu_win);
+	}
 }
 
 void set_nodelay_mode() {
@@ -189,7 +223,7 @@ void *draw_event() {
     keypad(stdscr, TRUE);
 	color_setting();
 
-	set_ticker(600000);
+	set_ticker(1000);
 
 	signal( SIGALRM, auto_set);
 
