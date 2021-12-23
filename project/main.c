@@ -29,6 +29,7 @@ int thepipe[2];
 
 char file_name[20] = "";
 char file_link[25] = "draw/";
+char file_ls[BUFSIZ];
 
 WINDOW *main_win;
 WINDOW *menu_win;
@@ -44,47 +45,62 @@ int set_ticker(int);
 void auto_set();
 void chile_key();
 
-int main(int ac, char *av[]) {
-
-    if(ac == 1) {
-		return 0;
-	}
-	else if (ac == 2) {
-        strcpy(file_name, av[1]);
-		strcat(file_link, file_name);
-	}
-	else if (ac == 3) {
-
-		iscreate = av[2] - "0";
-
-		strcpy(file_name, av[1]);
-		strcat(file_link, file_name);
-	}
-
-    tty_mode(0);
-    set_nodelay_mode();
-    signal(SIGINT, SIG_IGN);
+int main(int ac, char *av[]) {    
 
 	int pid;
+
+	if ( pipe(thepipe) == -1) {
+		perror("pipe");
+	}
 
 	if ( (pid = fork()) == -1) {
 		perror("fork");
 	}
 	else if ( pid > 0) {
+        if(ac == 1) {
+			return 0;
+		}
+		else if (ac == 2) {
+			strcpy(file_name, av[1]);
+			strcat(file_link, file_name);
+		}
+		else if (ac == 3) {
+
+			iscreate = av[2] - "0";
+
+			strcpy(file_name, av[1]);
+			strcat(file_link, file_name);
+		}
+
+		tty_mode(0);
+    	set_nodelay_mode();
+
+		signal(SIGINT, SIG_IGN);
     	signal(SIGQUIT, QUIT_handler);
+
+		close(thepipe[1]);
+		read(thepipe[0], file_ls, BUFSIZ);
+
+		sub_win = newwin(LINES, 20, 0, WIDTH-20);
+		box(sub_win, 0, 0);
+		wmove(sub_win, 1, 1);
+		waddstr(sub_win, file_ls);
+		wrefresh(sub_win);
+		refresh();
 
    		pthread_t mouse_thread;
 	
     	pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
     	pthread_join(mouse_thread, NULL);
 
-    	tty_mode(1);
+    	tty_mode(1);		
 	}
 	else {
-		sub_win = newwin(LINES, 20, 0, WIDTH-20);
-		box(sub_win, 0, 0);
-		wrefresh(sub_win);
-		refresh();
+		close(thepipe[0]);
+		dup2(thepipe[1], 1);
+		close(thepipe[1]);
+
+		execlp("ls", "ls", "draw/");
 	}
 
     return 0;
