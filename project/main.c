@@ -98,7 +98,7 @@ void choice_file() {
 
 	//struct filename file_arr;
 
-	choice_win = new_win(HEIGHT - 5, 25, 5, 20);
+	choice_win = newwin(HEIGHT - 5, 25, 5, 20);
 	box(choice_win, 0, 0);
 	
     read(thepipe[0], file_name, 20);
