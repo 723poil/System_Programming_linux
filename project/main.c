@@ -151,6 +151,8 @@ void *first_key_event() {
 				if(event.bstate & BUTTON1_PRESSED) {
 					// 좌표 넣기 성공하면 break 넣기
 					// 좌표에 맞는 파일 선택해서 변수에 저장하기
+					addstr(event.y);
+					refresh();
 					if (event.y > 5 & event.y < HEIGHT & event.x > 20 & event.x < 45) {
 						strcpy(file_name, files[event.y - 6]);
 						//file_name = files[event.y-6];
