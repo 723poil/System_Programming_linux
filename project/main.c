@@ -271,6 +271,7 @@ void *draw_event() {
 	wrefresh(main_win);
 
     menu_event();
+	sub_event();
 
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
