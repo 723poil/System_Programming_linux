@@ -81,7 +81,7 @@ void QUIT_handler() {
 	fclose(f);
 
 	signal(SIGINT, SIG_DFL);
-    signal(SIGQUIT, QUIT_DFL);
+    signal(SIGQUIT, SIG_DFL);
 	tty_mode(1);
 }
 
