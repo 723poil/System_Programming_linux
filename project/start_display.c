@@ -78,7 +78,7 @@ void choice_file() {
 	search_file();
 
 	choice_win = newwin(HEIGHT - 5, 25, 5, 20);
-	//box(choice_win, 0, 0);
+	box(choice_win, 0, 0);
     refresh();
     wrefresh(choice_win);
 
@@ -101,7 +101,7 @@ void choice_file() {
     wrefresh(choice_win);
 
 	wmove(choice_win, 1, 1);
-	//box(choice_win, 0, 0);
+	box(choice_win, 0, 0);
 	wrefresh(choice_win);
 	
     mousemask(BUTTON1_PRESSED, NULL);
