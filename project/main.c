@@ -103,10 +103,6 @@ void QUIT_handler() {
 
 			write(stdout, 11+ctime(&info.st_mtim), BUFSIZ);
 		}
-		
-		tty_mode(1);
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 
 		endwin();
 		exit(1);
