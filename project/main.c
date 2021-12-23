@@ -84,8 +84,7 @@ void QUIT_handler() {
 	else if ( pid > 0 ) {
 
 		remove(file_link);
-
-		
+	
 		FILE *f;
 		f = fopen(file_link, "a");
 		
@@ -102,7 +101,7 @@ void QUIT_handler() {
 			dup2(thepipe[1], 1);
 			close(thepipe[1]);
 
-			write(stdout, 10+ctime(&info.st_mtim), 5);
+			write(stdout, 10+ctime(&info.st_mtim), BUFSIZ);
 		}
 		
 		tty_mode(1);
@@ -113,7 +112,7 @@ void QUIT_handler() {
 		exit(1);
 	}
 	else {
-		char thetime[5];
+		char thetime[BUFSIZ];
 		read(thepipe[0], thetime, 5);
 		wmove(menu_win, 2, WIDTH - 10);
 		waddstr(menu_win, thetime);
