@@ -56,7 +56,6 @@ int main(void) {
     pthread_t mouse_thread;
 
     choice_file();
-
 	
     pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
     pthread_join(mouse_thread, NULL);
@@ -130,6 +129,7 @@ void choice_file() {
     mouseinterval(0);
 
 	while(1) {
+		waddstr(choice_win, "1");
 		int ch = getch();
         MEVENT event;
 
