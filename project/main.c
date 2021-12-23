@@ -141,6 +141,7 @@ void choice_file() {
 						strcpy(file_name, files[event.y - 6]);
 						//file_name = files[event.y-6];
 						snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
+						endwin();
 						break;
 					}
 				}
