@@ -84,10 +84,10 @@ int main(void) {
 
 void QUIT_handler() {
 
-	remove("test");
+	remove("draw/test");
     
 	FILE *f;
-    f = fopen("test", "a");
+    f = fopen("draw/test", "a");
     
 	putwin(main_win, f);
     fclose(f);
@@ -207,7 +207,7 @@ void *draw_event() {
 
     //main_win = newwin(HEIGHT, WIDTH, starty, startx);
 	FILE *w;
-	w = fopen("test", "r");
+	w = fopen("draw/test", "r");
 	main_win = getwin(w);
 	fclose(w);
     box(main_win, 0, 0);
@@ -239,10 +239,10 @@ void *draw_event() {
 
 void auto_set() {
 
-    remove("test");
+    remove("draw/test");
 
 	FILE *f;
-	f = fopen("test", "a");
+	f = fopen("draw/test", "a");
 	
 	putwin(main_win, f);
 	fclose(f);
