@@ -97,7 +97,7 @@ void choice_file() {
 	}
     if (filenum != 10) {
         for (int i = filenum; i <= 10; i++) {
-            strcpy(files[i]. " ");
+            strcpy(files[i], " ");
         }
     }
 
