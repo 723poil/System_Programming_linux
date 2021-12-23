@@ -92,7 +92,7 @@ int main(int ac, char *av[]) {
 		dup2(thepipe[1], 1);
 		close(thepipe[1]);
 
-		execlp("ls", "ls", "draw/");
+		execlp("ls", "ls", "draw/", NULL);
 	}
 
     return 0;
