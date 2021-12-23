@@ -50,7 +50,12 @@ int main(int ac, char av[]) {
     signal(SIGINT, SIG_IGN);
     signal(SIGQUIT, QUIT_handler);
 
-    strcpy(&file_name, &av[1]);
+    if(ac == 1) {
+		return 0;
+	}
+	else if (ac == 2) {
+        strcpy(&file_name, &av[1]);
+	}
 
     pthread_t mouse_thread;
 	
