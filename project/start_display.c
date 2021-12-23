@@ -76,6 +76,9 @@ void choice_file() {
 
 	search_file();
 
+    mousemask(BUTTON1_PRESSED, NULL);
+    mouseinterval(0);
+
 	choice_win = newwin(HEIGHT - 5, 25, 5, 20);
 	box(choice_win, 0, 0);
     refresh();
@@ -100,9 +103,6 @@ void choice_file() {
 	wmove(choice_win, 1, 1);
 	box(choice_win, 0, 0);
 	wrefresh(choice_win);
-	
-    // mousemask(BUTTON1_PRESSED, NULL);
-    // mouseinterval(0);
 
     int start_bool = 1;
 
