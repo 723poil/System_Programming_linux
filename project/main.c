@@ -117,7 +117,7 @@ void choice_file() {
 	}
 
 	for (int i = 1; i <= filenum; i++) {
-        wmove(choice_win, i, 2);
+        wmove(choice_win, i, 1);
 		waddstr(choice_win, files[i-1]);
 		wrefresh(choice_win);
 	}
@@ -128,11 +128,10 @@ void choice_file() {
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
-	int ch;
-    MEVENT event;
-
 	while(1) {
-		ch = getch();
+		int ch = getch();
+        MEVENT event;
+
 		if(ch == KEY_MOUSE) {
 			if(getmouse(&event) == OK) {
 				if(event.bstate & BUTTON1_PRESSED) {
