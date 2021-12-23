@@ -121,6 +121,7 @@ void choice_file() {
 		box(choice_win, 0, 0);
 		wrefresh(choice_win);
 	}
+	refresh();
 	wgetch(choice_win);
 	
     mousemask(BUTTON1_PRESSED, NULL);
