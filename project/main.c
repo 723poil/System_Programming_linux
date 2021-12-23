@@ -113,7 +113,7 @@ void choice_file() {
 
 	while(ptr != NULL) {
 		strcpy(files[filenum], ptr);
-		write(fd, ptr, strlen(ptr));
+		write(fd, files[filenum], strlen(ptr));
 		//files[filenum] = ptr;
 		filenum += 1;
 		ptr = strtok(NULL, " ");
