@@ -98,7 +98,7 @@ void choice_file() {
         //wmove(choice_win, i, 2);
 		mvwprintw(choice_win, i, 5, files[i-1]);
 		// box(choice_win, 0, 0);
-		// wrefresh(choice_win);
+		wrefresh(choice_win);
 	}
 	wmove(choice_win, 1, 1);
 	//box(choice_win, 0, 0);
