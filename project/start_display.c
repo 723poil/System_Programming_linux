@@ -109,12 +109,11 @@ void choice_file() {
 
     int bol = 1;
 	while(bol) {
-        getch();
 		pthread_t t;
 		pthread_create(&t, NULL, first_key_event, &bol);
 		pthread_join(t, NULL);
-        mvwprintw(choice_win, 12, 23, bol);
-        wrefresh(choice_win);
+        // mvwprintw(choice_win, 12, 23, bol);
+        // wrefresh(choice_win);
 	}
     return NULL;
 }
@@ -140,4 +139,7 @@ void *first_key_event(int *bol) {
 				}
 			}
 		}
+        else if (ch == 'q') {
+            exit(1);
+        }
 }
