@@ -31,7 +31,7 @@ char file_link[25] = "draw/";
 
 WINDOW *main_win;
 WINDOW *menu_win;
-WINDOW *choice_win;
+WINDOW *sub_win;
 
 void *draw_event();
 void *key_event();
@@ -41,6 +41,7 @@ void color_black(WINDOW * win);
 void QUIT_handler();
 int set_ticker(int);
 void auto_set();
+void chile_key();
 
 int main(int ac, char *av[]) {
 
@@ -55,14 +56,28 @@ int main(int ac, char *av[]) {
     tty_mode(0);
     set_nodelay_mode();
     signal(SIGINT, SIG_IGN);
-    signal(SIGQUIT, QUIT_handler);
 
-    pthread_t mouse_thread;
+	int pid;
+
+	if ( (pid = fork()) == -1) {
+		perror("fork");
+	}
+	else if ( pid > 0) {
+    	signal(SIGQUIT, QUIT_handler);
+
+   		pthread_t mouse_thread;
 	
-    pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
-    pthread_join(mouse_thread, NULL);
+    	pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
+    	pthread_join(mouse_thread, NULL);
 
-    tty_mode(1);
+    	tty_mode(1);
+	}
+	else {
+		sub_win = newwin(sub_win, LINES, 20, 0, WIDTH-20);
+		box(sub_win, 0, 0);
+		wrefresh(sub_win);
+
+	}
 
     return 0;
 }
@@ -217,7 +232,7 @@ void *draw_event() {
     color_black(main_win);
     color_black(menu_win);
    
-    refresh(); 
+    refresh();
     box(menu_win, 0, 0);
     wrefresh(menu_win);
     wmove(main_win, cury, curx);
