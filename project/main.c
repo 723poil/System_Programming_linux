@@ -108,14 +108,15 @@ void choice_file() {
 	char *ptr = strtok(buffer, " ");
 
 	while(ptr != NULL) {
-		files[filenum] = ptr;
+		strcpy(files[filenum], ptr);
+		//files[filenum] = ptr;
 		filenum += 1;
 		ptr = strtok(NULL, " ");
 	}
 
 	for (int i = 1; i <= filenum; i++) {
         wmove(choice_win, i, 1);
-		waddstr(choice_win, filenum[i-1]);
+		waddstr(choice_win, files[i-1]);
 	}
 	box(choice_win, 0, 0);
 	wrefresh(choice_win);
@@ -134,7 +135,8 @@ void choice_file() {
 					// 좌표 넣기 성공하면 break 넣기
 					// 좌표에 맞는 파일 선택해서 변수에 저장하기
 					if (event.y > 5 & event.y < HEIGHT & event.x > 20 & event.x < 45) {
-						file_name = files[event.y-6];
+						strcpy(file_name, files[event.y - 6]);
+						//file_name = files[event.y-6];
 						snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
 						break;
 					}
