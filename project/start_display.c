@@ -25,6 +25,8 @@ WINDOW *choice_win;
 void choice_file();
 void search_file();
 
+int start_bool = 1;
+
 int main(void) {
    
     //tty_mode(0);
@@ -107,10 +109,9 @@ void choice_file() {
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
-    int bol = 1;
-	while(bol) {
+	while(start_bool) {
 		pthread_t t;
-		pthread_create(&t, NULL, first_key_event, &bol);
+		pthread_create(&t, NULL, first_key_event, NULL);
 		pthread_join(t, NULL);
         // mvwprintw(choice_win, 12, 23, bol);
         // wrefresh(choice_win);
@@ -118,7 +119,7 @@ void choice_file() {
     return NULL;
 }
 
-void *first_key_event(int *bol) {
+void *first_key_event() {
 	int ch = getch();
         MEVENT event;
 
@@ -133,7 +134,7 @@ void *first_key_event(int *bol) {
 						snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
 						clear();
 						endwin();
-						*bol = 0;
+                        start_bool = 0;
                         return NULL;
 					}
 				}
