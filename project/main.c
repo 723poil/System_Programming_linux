@@ -108,7 +108,6 @@ void QUIT_handler() {
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		
-		endwin();
 		exit(1);
 	}
 	else {
