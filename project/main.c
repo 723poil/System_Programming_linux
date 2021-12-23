@@ -7,11 +7,16 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 #define WIDTH COLS
 #define HEIGHT LINES-5
+#define FILENUM 10
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+
+char files[FILENUM][20];
+int filenum = 0;
 
 int startx = 0;
 int starty = 5;
@@ -24,6 +29,7 @@ int cs = 1;
 int thepipe[2];
 
 char file_name[20];
+char file_link[25];
 
 WINDOW *main_win;
 WINDOW *menu_win;
@@ -52,8 +58,8 @@ int main(void) {
     choice_file();
 
 	
-    // pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
-    // pthread_join(mouse_thread, NULL);
+    pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
+    pthread_join(mouse_thread, NULL);
 
     tty_mode(1);
 
@@ -83,8 +89,6 @@ void search_file() {
 	}
 	else {
 		wait(NULL);
-		
-
 	}
 }
 
@@ -94,34 +98,58 @@ void choice_file() {
 	clear();
 
 	search_file();
-    // struct filename {
-	// 	int i;
-	// 	char name[20];
-	// }
 
-	//struct filename file_arr;
-
-	// choice_win = newwin(HEIGHT - 5, 25, 5, 20);
-	// box(choice_win, 0, 0);
+	choice_win = newwin(HEIGHT - 5, 25, 5, 20);
+	box(choice_win, 0, 0);
 	
-    // read(thepipe[0], file_name, 20);
-
-    // wmove(choice_win, 1, 1);
-	// waddstr(choice_win, file_name);
-	// wrefresh(choice_win);
+    char buffer[BUFSIZ];
+	read(thepipe[0], buffer, BUFSIZ);
 	
-	while(1) {
-		continue;
+	char *ptr = strtok(buffer, " ");
+
+	while(ptr != NULL) {
+		files[filenum] = ptr;
+		filenum += 1;
+		ptr = strtok(NULL, " ");
 	}
 
+	for (int i = 1; i <= filenum; i++) {
+        wmove(choice_win, i, 1);
+		waddstr(choice_win, filenum[i-1]);
+	}
+	box(choice_win, 0, 0);
+	wrefresh(choice_win);
+	
+    mousemask(BUTTON1_PRESSED, NULL);
+    mouseinterval(0);
+
+	int ch;
+    MEVENT event;
+
+	while(1) {
+		ch = getch();
+		if(ch == KEY_MOUSE) {
+			if(getmouse(&event) == OK) {
+				if(event.bstate & BUTTON1_PRESSED) {
+					// 좌표 넣기 성공하면 break 넣기
+					// 좌표에 맞는 파일 선택해서 변수에 저장하기
+					if (event.y > 5 & event.y < HEIGHT & event.x > 20 & event.x < 45) {
+						file_name = files[event.y-6];
+						snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
+						break;
+					}
+				}
+			}
+		}
+	}
 }
 
 void QUIT_handler() {
 
-	remove("draw/test");
+	remove(file_link);
     
 	FILE *f;
-    f = fopen("draw/test", "a");
+    f = fopen(file_link, "a");
     
 	putwin(main_win, f);
     fclose(f);
@@ -163,8 +191,10 @@ void menu_event() {
 	color_black(menu_win);
 	wrefresh(menu_win);
 
+    char output_file[50];
+	snprintf(output_file, strlen(file_name) + 12, "FILE NAME - %s", file_name);
 	wmove(menu_win, 1, 3);
-	waddstr(menu_win, "FILE NAME - test");
+	waddstr(menu_win, output_file);
 	wmove(menu_win, 1, 28);
 	waddstr(menu_win, "F1 - ");
 	wattron(menu_win, COLOR_PAIR(1));
@@ -241,7 +271,7 @@ void *draw_event() {
 
     //main_win = newwin(HEIGHT, WIDTH, starty, startx);
 	FILE *w;
-	w = fopen("draw/test", "r");
+	w = fopen(file_link, "r");
 	main_win = getwin(w);
 	fclose(w);
     box(main_win, 0, 0);
@@ -273,13 +303,23 @@ void *draw_event() {
 
 void auto_set() {
 
-    remove("draw/test");
+    int pid;
 
-	FILE *f;
-	f = fopen("draw/test", "a");
-	
-	putwin(main_win, f);
-	fclose(f);
+	if( (pid = fork()) == -1) {
+		perror("fork");
+		exit(1);
+	}
+	else if ( pid > 0 ) {
+
+		remove(file_link);
+
+		FILE *f;
+		f = fopen(file_link, "a");
+		
+		putwin(main_win, f);
+		fclose(f);
+		exit(1);
+	}
 }
 
 void color_black(WINDOW* win) {
