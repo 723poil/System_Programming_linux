@@ -332,7 +332,7 @@ void *key_event() {
     if(ch == KEY_MOUSE) {
 		if(getmouse(&event) == OK) {
 			if(event.bstate & BUTTON1_PRESSED) {
-				if(event.y-5 > 0 && event.y-5 < HEIGHT-1 && event.x < WIDTH-1 && event.x > 0) {
+				if(event.y-5 > 0 && event.y-5 < HEIGHT-1 && event.x < WIDTH-21 && event.x > 0) {
 					cury = event.y - 5;
 					curx = event.x;
 					wmove(main_win, cury, curx);
