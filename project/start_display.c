@@ -30,7 +30,7 @@ int main(void) {
     tty_mode(0);
     set_nodelay_mode();
     signal(SIGINT, SIG_IGN);
-    signal(SIGQUIT, QUIT_handler);
+    //signal(SIGQUIT, QUIT_handler);
 
     pthread_t mouse_thread;
 
