@@ -23,6 +23,7 @@ int curx = 1;
 int cury = 1;
 
 int cs = 1;
+int iscreate = 0;
 
 int thepipe[2];
 
@@ -53,6 +54,8 @@ int main(int ac, char *av[]) {
 		strcat(file_link, file_name);
 	}
 	else if (ac == 3) {
+
+		iscreate = av[2] - "0";
 
 		strcpy(file_name, av[1]);
 		strcat(file_link, file_name);
@@ -230,12 +233,14 @@ void *draw_event() {
 	signal( SIGALRM, auto_set);
 
     //main_win = newwin(HEIGHT, WIDTH, starty, startx);
-	FILE *w;
-	w = fopen(file_link, "r");
-	main_win = getwin(w);
-	fclose(w);
-    box(main_win, 0, 0);
-    wrefresh(main_win);
+	if (iscreate == 0) {
+		FILE *w;
+		w = fopen(file_link, "r");
+		main_win = getwin(w);
+		fclose(w);
+		box(main_win, 0, 0);
+		wrefresh(main_win);
+	}
 
     menu_event();
 
