@@ -107,8 +107,7 @@ void choice_file() {
 
 	while(1) {
 		start_bool = first_key_event();
-        mvwprintw(choice_win, 13, 19, &start_bool);
-        wrefresh(choice_win);
+        mvwprintw(choice_win, 13, 19, "1");
         if (start_bool == 0) {
             continue;
         }
@@ -131,7 +130,7 @@ int first_key_event() {
 					strcpy(file_name, files[event.y - 6]);
 					snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
 					clear();
-					endwin(); 
+					endwin();
                     return 0;
 				}
 			}
