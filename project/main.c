@@ -100,7 +100,7 @@ void choice_file() {
 	search_file();
 
 	choice_win = newwin(HEIGHT - 5, 45, 5, 20);
-	box(choice_win, 0, 0);
+	//box(choice_win, 0, 0);
 	
     char buffer[BUFSIZ];
 	read(thepipe[0], buffer, BUFSIZ);
@@ -124,7 +124,7 @@ void choice_file() {
 	}*/
 	wmove(choice_win, 1, 1);
 	refresh();
-	box(choice_win, 0, 0);
+	//box(choice_win, 0, 0);
 	wrefresh(choice_win);
 	wgetch(choice_win);
 	
