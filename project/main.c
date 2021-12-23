@@ -252,11 +252,13 @@ void auto_set() {
 		perror(file_link);
 	}
 	else {
+		pthread_mutex_lock(&lock);
 		wmove(menu_win, 2, WIDTH - 20);
 		waddstr(menu_win, 11+ctime(&info.st_mtim));
 		wrefresh(menu_win);
 		wmove(main_win, cury, curx);
 		wrefresh(main_win);
+		pthread_mutex_unlock(&lock);
 	}
 }
 
