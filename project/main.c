@@ -61,7 +61,7 @@ int main(int ac, char *av[]) {
 
 		f = fopen(file_link, "w");
 		main_win = newwin(HEIGHT, WIDTH, starty, startx);
-		putwin(main_win);
+		putwin(main_win, f);
 		fclose(f);
 	}
 
