@@ -125,7 +125,7 @@ void first_key_event() {
 					clear();
 					endwin();
                     conti = 0;
-                    return (void *)conti;
+                    return conti;
 				}
 			}
 		}
@@ -133,8 +133,8 @@ void first_key_event() {
     else if (ch == 'q') {
         endwin();
         conti = 0;
-        return (void *)conti;
+        return conti;
     }
     wrefresh(choice_win);
-    return (void *)conti;
+    return conti;
 }
