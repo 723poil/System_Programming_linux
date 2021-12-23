@@ -51,6 +51,7 @@ int main(int ac, char av[]) {
     signal(SIGQUIT, QUIT_handler);
 
     strcpy(file_name, av[1]);
+	filename[strlen(av[1])] = '\0';
 
     pthread_t mouse_thread;
 	
