@@ -95,6 +95,8 @@ void search_file() {
 void choice_file() {
 
 	initscr();
+	noecho();
+    keypad(stdscr, TRUE);
 	clear();
 
 	search_file();
