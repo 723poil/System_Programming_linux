@@ -80,7 +80,6 @@ void choice_file() {
 
 	choice_win = newwin(FILENUM + 2, 25, 5, 20);
 	box(choice_win, 0, 0);
-    refresh();
     wrefresh(choice_win);
 
 	
