@@ -101,14 +101,14 @@ void choice_file() {
 
 	//struct filename file_arr;
 
-	choice_win = newwin(HEIGHT - 5, 25, 5, 20);
-	box(choice_win, 0, 0);
+	// choice_win = newwin(HEIGHT - 5, 25, 5, 20);
+	// box(choice_win, 0, 0);
 	
-    read(thepipe[0], file_name, 20);
+    // read(thepipe[0], file_name, 20);
 
-    wmove(choice_win, 1, 1);
-	waddstr(choice_win, file_name);
-	wrefresh(choice_win);
+    // wmove(choice_win, 1, 1);
+	// waddstr(choice_win, file_name);
+	// wrefresh(choice_win);
 	
 	while(1) {
 		continue;
