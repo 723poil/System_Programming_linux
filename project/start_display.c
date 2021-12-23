@@ -105,10 +105,13 @@ void choice_file() {
 
     int start_bool = 1;
 
-	while(start_bool) {
+	while(1) {
 		start_bool = first_key_event();
         mvwprintw(choice_win, 13, 19, start_bool);
         wrefresh(choice_win);
+        if (start_bool == 0) {
+            break;
+        }
 	}
 }
 
