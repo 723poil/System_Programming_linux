@@ -80,7 +80,9 @@ void choice_file() {
 
 	choice_win = newwin(HEIGHT - 5, 25, 5, 20);
 	//box(choice_win, 0, 0);
+    refresh();
     wrefresh(choice_win);
+
 	
     char buffer[BUFSIZ];
 	read(thepipe[0], buffer, BUFSIZ);
@@ -102,7 +104,6 @@ void choice_file() {
 		// box(choice_win, 0, 0);
 		wrefresh(choice_win);
 	}
-    refresh();
 	wmove(choice_win, 1, 1);
 	//box(choice_win, 0, 0);
 	wrefresh(choice_win);
