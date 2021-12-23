@@ -109,6 +109,7 @@ void choice_file() {
 
     int bol = 1;
 	while(bol) {
+        getch();
 		pthread_t t;
 		pthread_create(&t, NULL, first_key_event, &bol);
 		pthread_join(t, NULL);
