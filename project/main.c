@@ -129,7 +129,7 @@ void choice_file() {
     mouseinterval(0);
 
 	while(1) {
-		waddstr(choice_win, "1");
+		wmove(choice_win, 1, 1);
 		int ch = getch();
         MEVENT event;
 
