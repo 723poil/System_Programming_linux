@@ -249,7 +249,6 @@ void *draw_event() {
 
 	sub_win = newwin(LINES, 18, 0, WIDTH-19);
 	box(sub_win, 0, 0);
-	wmove(sub_win, 1, 1);
 	wrefresh(sub_win);
 
 	read(thepipe[0], file_ls, BUFSIZ);
@@ -269,6 +268,7 @@ void *draw_event() {
     box(menu_win, 0, 0);
     wrefresh(menu_win);
 	box(sub_win, 0, 0);
+	wmove(sub_win, 1, 1);
 	waddstr(sub_win, ps);
 	wrefresh(sub_win);
     wmove(main_win, cury, curx);
