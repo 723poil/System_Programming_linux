@@ -108,12 +108,17 @@ void choice_file() {
 	
 	char *ptr = strtok(buffer, " ");
 
+	int fd;
+	fd = open("test.txt", O_WRONLY);
+
 	while(ptr != NULL) {
 		strcpy(files[filenum], ptr);
+		write(f, ptr, strlen(ptr));
 		//files[filenum] = ptr;
 		filenum += 1;
 		ptr = strtok(NULL, " ");
 	}
+	close(fd);
 
 	for (int i = 1; i <= filenum; i++) {
         //wmove(choice_win, i, 2);
