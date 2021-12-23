@@ -119,7 +119,7 @@ void choice_file() {
         if(ch == KEY_MOUSE) {
             if(getmouse(&event) == OK) {
                 if(event.bstate & BUTTON1_PRESSED) {
-                    if (event.y > 5 && event.y < HEIGHT && event.x > 20 && event.x < 45) {
+                    if (event.y > 0 && event.y < HEIGHT && event.x > 0 && event.x < 45) {
                         strcpy(file_name, files[event.y - 6]);
                         snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
                         clear();
