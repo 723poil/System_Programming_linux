@@ -42,19 +42,17 @@ void color_black(WINDOW * win);
 void QUIT_handler();
 int set_ticker(int);
 void auto_set();
-void choice_file();
-void search_file();
 
-int main(void) {
+int main(int ac, char av[]) {
    
     tty_mode(0);
     set_nodelay_mode();
     signal(SIGINT, SIG_IGN);
     signal(SIGQUIT, QUIT_handler);
 
-    pthread_t mouse_thread;
+    strcpy(file_name, av[1]);
 
-    choice_file();
+    pthread_t mouse_thread;
 	
     pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
     pthread_join(mouse_thread, NULL);
@@ -62,83 +60,6 @@ int main(void) {
     tty_mode(1);
 
     return 0;
-}
-
-void search_file() {
-
-	int pid;
-
-	if (pipe(thepipe) == -1) {
-		perror("pipe");
-		exit(2);
-	}
-
-	if( (pid = fork()) == -1 ) {
-		perror("fork");
-		exit(2);
-	}
-	else if ( pid > 0 ) {
-		// children
-		close(thepipe[0]);
-		dup2(thepipe[1], 1);
-		close(thepipe[1]);
-
-		execlp("ls", "ls", "draw", NULL);
-	}
-	else {
-		wait(NULL);
-	}
-}
-
-void choice_file() {
-
-	initscr();
-	noecho();
-    keypad(stdscr, TRUE);
-
-    void *first_key_event();
-
-	search_file();
-
-	choice_win = newwin(HEIGHT - 5, 80, 5, 20);
-	//box(choice_win, 0, 0);
-	
-    char buffer[BUFSIZ];
-	read(thepipe[0], buffer, BUFSIZ);
-
-    // mvwprintw(choice_win, 1, 5, buffer);
-
-	char *ptr = strtok(buffer, " ");
-
-	while(ptr != NULL) {
-		strcpy(files[filenum], ptr); 
-		files[filenum][strlen(ptr)] = '\0';
-		filenum += 1;
-		ptr = strtok(NULL, " ");
-	}
-
-	for (int i = 1; i <= filenum; i++) {
-        //wmove(choice_win, i, 2);
-		mvwprintw(choice_win, i, 5, files[i-1]);
-		// box(choice_win, 0, 0);
-		// wrefresh(choice_win);
-	}
-	wmove(choice_win, 1, 1);
-	refresh();
-	//box(choice_win, 0, 0);
-	wrefresh(choice_win);
-	wgetch(choice_win);
-	
-    mousemask(BUTTON1_PRESSED, NULL);
-    mouseinterval(0);
-
-	while(1) {
-		wmove(choice_win, 1, 1);
-		wrefresh(choice_win);
-		pthread_t t;
-		pthread_create(&t, NULL, first_key_event, (void *)NULL);
-		pthread_join(t, NULL);
-	}
 }
 
 void *first_key_event() {
