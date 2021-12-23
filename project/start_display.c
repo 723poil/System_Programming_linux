@@ -95,12 +95,11 @@ void choice_file() {
         mvwprintw(choice_win, filenum, 1, files[filenum-1]);
         ptr = strtok(NULL, "\n");
 	}
-    wrefresh(choice_win);
+    // wrefresh(choice_win);
 
 	// wmove(choice_win, 1, 1);
 	box(choice_win, 0, 0);
 	wrefresh(choice_win);
-    getch();
 
     int start_bool = 1;
 
