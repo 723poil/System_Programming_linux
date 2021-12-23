@@ -107,9 +107,13 @@ void QUIT_handler() {
 		tty_mode(1);
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
+
+		endwin();
+		exit(1);
 	
 	}
 	else {
+		wait(NULL);
 		char thetime[BUFSIZ] = " ";
 		read(thepipe[0], thetime, BUFSIZ);
 		wmove(menu_win, 2, WIDTH - 10);
