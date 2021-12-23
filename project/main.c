@@ -81,13 +81,6 @@ int main(int ac, char *av[]) {
 		close(thepipe[1]);
 		read(thepipe[0], file_ls, BUFSIZ);
 
-		sub_win = newwin(LINES, 15, 0, WIDTH-19);
-		box(sub_win, 0, 0);
-		wmove(sub_win, 1, 1);
-		waddstr(sub_win, file_ls);
-		wrefresh(sub_win);
-		refresh();
-
    		pthread_t mouse_thread;
 	
     	pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
@@ -254,6 +247,13 @@ void *draw_event() {
 	wrefresh(main_win);
 
     menu_event();
+
+	sub_win = newwin(LINES, 15, 0, WIDTH-19);
+	box(sub_win, 0, 0);
+	wmove(sub_win, 1, 1);
+	waddstr(sub_win, file_ls);
+	wrefresh(sub_win);
+	refresh();
 
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
