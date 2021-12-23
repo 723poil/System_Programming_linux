@@ -101,8 +101,8 @@ void choice_file() {
 	box(choice_win, 0, 0);
 	wrefresh(choice_win);
 	
-    mousemask(BUTTON1_PRESSED, NULL);
-    mouseinterval(0);
+    // mousemask(BUTTON1_PRESSED, NULL);
+    // mouseinterval(0);
 
     int start_bool = 1;
 
@@ -125,11 +125,8 @@ void *first_key_event() {
 	if(ch == KEY_MOUSE) {
 		if(getmouse(&event) == OK) {
 			if(event.bstate & BUTTON1_PRESSED) {
-					// 좌표 넣기 성공하면 break 넣기
-					// 좌표에 맞는 파일 선택해서 변수에 저장하기
 				if (event.y > 5 && event.y < HEIGHT && event.x > 20 && event.x < 45) {
 					strcpy(file_name, files[event.y - 6]);
-					//file_name = files[event.y-6];
 					snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
 					clear();
 					endwin();
