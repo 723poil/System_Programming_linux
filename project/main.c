@@ -237,7 +237,7 @@ void sub_event() {
 	while (ptr != NULL) {
 		wmove(sub_win, i, 1);
 		waddstr(sub_win, ptr);
-		i += 1
+		i += 1;
 
 		ptr = strtok(NULL, "\n");
 	}
