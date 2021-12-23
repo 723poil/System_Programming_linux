@@ -107,7 +107,7 @@ void choice_file() {
 
 	while(start_bool) {
 		pthread_t t;
-		pthread_create(&t, NULL, first_key_event, NULL);
+		pthread_create(&t, NULL, first_key_event, (void *) NULL);
 		pthread_join(t, (void *)&start_bool);
         // mvwprintw(choice_win, 12, 23, bol);
         // wrefresh(choice_win);
