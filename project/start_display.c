@@ -86,18 +86,16 @@ void choice_file() {
     char buffer[BUFSIZ];
 	read(thepipe[0], buffer, BUFSIZ);
 
-    // mvwprintw(choice_win, 1, 5, buffer);
+	// char *ptr = strtok(buffer, "\n");
 
-	char *ptr = strtok(buffer, "\n");
-
-	while(ptr != NULL) {
-		strcpy(files[filenum], ptr); 
-		files[filenum][strlen(ptr)] = '\0';
-		filenum += 1;
-        mvwprintw(choice_win, filenum, 1, files[filenum-1]);
-        getch();
-        ptr = strtok(NULL, "\n");
-	}
+	// while(ptr != NULL) {
+	// 	strcpy(files[filenum], ptr); 
+	// 	files[filenum][strlen(ptr)] = '\0';
+	// 	filenum += 1;
+    //     mvwprintw(choice_win, filenum, 1, files[filenum-1]);
+    //     getch();
+    //     ptr = strtok(NULL, "\n");
+	// }
     wrefresh(choice_win);
 
 	wmove(choice_win, 1, 1);
