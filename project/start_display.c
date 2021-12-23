@@ -115,7 +115,7 @@ void choice_file() {
 }
 
 int first_key_event() {
-	int ch = getch();
+	int ch = wgetch(choice_win);
     MEVENT event;
 
     int conti = 1;
