@@ -78,7 +78,7 @@ void choice_file() {
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
-	choice_win = newwin(HEIGHT - 5, 25, 5, 20);
+	choice_win = newwin(FILENUM + 2, 25, 5, 20);
 	box(choice_win, 0, 0);
     refresh();
     wrefresh(choice_win);
