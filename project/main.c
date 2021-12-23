@@ -200,7 +200,7 @@ void *draw_event() {
     keypad(stdscr, TRUE);
 	color_setting();
 
-	set_ticker(1000);
+	set_ticker(5000);
 
 	signal( SIGALRM, auto_set);
 
