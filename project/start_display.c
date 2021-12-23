@@ -24,7 +24,7 @@ WINDOW *choice_win;
 
 void choice_file();
 void search_file();
-void first_key_event();
+int first_key_event();
 
 int main(void) {
    
@@ -110,7 +110,7 @@ void choice_file() {
 	}
 }
 
-void first_key_event() {
+int first_key_event() {
 	int ch = getch();
     MEVENT event;
 
@@ -135,6 +135,5 @@ void first_key_event() {
         conti = 0;
         return conti;
     }
-    wrefresh(choice_win);
     return conti;
 }
