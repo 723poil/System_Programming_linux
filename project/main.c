@@ -140,7 +140,7 @@ void menu_event() {
 		perror(file_link);
 	}
 
-	menu_win = newwin(5, WIDTH, 0, 0);
+	menu_win = newwin(5, WIDTH-21, 0, 0);
 	box(menu_win, 0, 0);
 	color_black(menu_win);
 	wrefresh(menu_win);
@@ -233,7 +233,7 @@ void *draw_event() {
 		fclose(w);
 	}
 	else {
-		main_win = newwin(HEIGHT, WIDTH, starty, startx);
+		main_win = newwin(HEIGHT, WIDTH-21, starty, startx);
 	}
 	box(main_win, 0, 0);
 	wrefresh(main_win);
@@ -279,7 +279,7 @@ void auto_set() {
 	}
 	else {
 		pthread_mutex_lock(&lock);
-		wmove(menu_win, 2, WIDTH - 25);
+		wmove(menu_win, 2, WIDTH - 45);
 		waddstr(menu_win, 11+ctime(&info.st_mtim));
 		wrefresh(menu_win);
 		wmove(main_win, cury, curx);
