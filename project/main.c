@@ -73,7 +73,7 @@ int main(int ac, char *av[]) {
     	tty_mode(1);
 	}
 	else {
-		sub_win = newwin(sub_win, LINES, 20, 0, WIDTH-20);
+		sub_win = newwin(LINES, 20, 0, WIDTH-20);
 		box(sub_win, 0, 0);
 		wrefresh(sub_win);
 
