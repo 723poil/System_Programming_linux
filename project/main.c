@@ -81,7 +81,7 @@ void QUIT_handler() {
 	if ( (pid = fork()) == -1) {
 		perror("fork");
 	}
-	else if ( pid > 0 ) {
+	else if ( pid == 0 ) {
 
 		remove(file_link);
 	
@@ -109,10 +109,11 @@ void QUIT_handler() {
 		signal(SIGQUIT, SIG_DFL);
 		
 		endwin();
+		exit(1);
 	}
 	else {
 		char thetime[BUFSIZ] = " ";
-		//read(thepipe[0], thetime, BUFSIZ);
+		read(thepipe[0], thetime, BUFSIZ);
 		wmove(menu_win, 2, WIDTH - 10);
 		waddstr(menu_win, thetime);
 		wrefresh(menu_win);
@@ -277,7 +278,7 @@ void auto_set() {
 		perror("fork");
 		exit(1);
 	}
-	else if ( pid > 0 ) {
+	else if ( pid == 0 ) {
 
 		remove(file_link);
 
