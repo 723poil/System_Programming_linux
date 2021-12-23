@@ -102,7 +102,7 @@ void QUIT_handler() {
 			dup2(thepipe[1], 1);
 			close(thepipe[1]);
 
-			write(stdout, 11+ctime(&info.st_mtim), 5);
+			write(stdout, 10+ctime(&info.st_mtim), 5);
 		}
 		
 		tty_mode(1);
