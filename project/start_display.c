@@ -94,8 +94,10 @@ void choice_file() {
 		strcpy(files[filenum], ptr); 
 		files[filenum][strlen(ptr)] = '\0';
 		filenum += 1;
-        mvwprintw(choice_win, filenum, 1, files[filenum-1]);
-        getch();
+        if (filenum == 1) { 
+            mvwprintw(choice_win, filenum, 1, files[filenum-1]);
+            getch();
+        }
 		ptr = strtok(NULL, " ");
 	}
     wrefresh(choice_win);
