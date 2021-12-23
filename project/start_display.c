@@ -25,8 +25,6 @@ WINDOW *choice_win;
 void choice_file();
 void search_file();
 
-int start_bool = 1;
-
 int main(void) {
    
     //tty_mode(0);
@@ -109,10 +107,12 @@ void choice_file() {
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
+    int start_bool = 1;
+
 	while(start_bool) {
 		pthread_t t;
 		pthread_create(&t, NULL, first_key_event, NULL);
-		pthread_join(t, NULL);
+		pthread_join(t, (void *)&start_bool);
         // mvwprintw(choice_win, 12, 23, bol);
         // wrefresh(choice_win);
 	}
@@ -121,26 +121,30 @@ void choice_file() {
 
 void *first_key_event() {
 	int ch = getch();
-        MEVENT event;
+    MEVENT event;
 
-		if(ch == KEY_MOUSE) {
-			if(getmouse(&event) == OK) {
-				if(event.bstate & BUTTON1_PRESSED) {
+    int conti = 1;
+
+	if(ch == KEY_MOUSE) {
+		if(getmouse(&event) == OK) {
+			if(event.bstate & BUTTON1_PRESSED) {
 					// 좌표 넣기 성공하면 break 넣기
 					// 좌표에 맞는 파일 선택해서 변수에 저장하기
-					if (event.y > 5 && event.y < HEIGHT && event.x > 20 && event.x < 45) {
-						strcpy(file_name, files[event.y - 6]);
-						//file_name = files[event.y-6];
-						snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
-						clear();
-						endwin();
-                        start_bool = 0;
-                        return NULL;
-					}
+				if (event.y > 5 && event.y < HEIGHT && event.x > 20 && event.x < 45) {
+					strcpy(file_name, files[event.y - 6]);
+					//file_name = files[event.y-6];
+					snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
+					clear();
+					endwin();
+                    conti = 0;
+                    return (void *)conti;
 				}
 			}
 		}
-        else if (ch == 'q') {
-            exit(1);
-        }
+	}
+    else if (ch == 'q') {
+        exit(1);
+    }
+
+    return (void *)conti;
 }
