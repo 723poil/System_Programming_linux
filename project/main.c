@@ -52,6 +52,18 @@ int main(int ac, char *av[]) {
         strcpy(file_name, av[1]);
 		strcat(file_link, file_name);
 	}
+	else if (ac == 3) {
+
+		strcpy(file_name, av[1]);
+		strcat(file_link, file_name);
+
+		FILE *f;
+
+		f = fopen(file_link, "w");
+		main_win = newwin(HEIGHT, WIDTH, starty, startx);
+		putwin(main_win);
+		fclose(f);
+	}
 
     tty_mode(0);
     set_nodelay_mode();
@@ -88,7 +100,7 @@ void QUIT_handler() {
     remove(file_link);
 	
 	FILE *f;
-	f = fopen(file_link, "a");
+	f = fopen(file_link, "w");
 		
 	putwin(main_win, f);
 	fclose(f);
