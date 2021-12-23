@@ -27,8 +27,8 @@ void search_file();
 
 int main(void) {
    
-    tty_mode(0);
-    set_nodelay_mode();
+    //tty_mode(0);
+    //set_nodelay_mode();
     signal(SIGINT, SIG_IGN);
     //signal(SIGQUIT, QUIT_handler);
 
@@ -36,7 +36,7 @@ int main(void) {
 
     choice_file();
 
-    tty_mode(1);
+    //tty_mode(1);
 
     return 0;
 }
