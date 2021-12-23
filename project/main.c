@@ -101,7 +101,7 @@ void QUIT_handler() {
 			dup2(thepipe[1], 1);
 			close(thepipe[1]);
 
-			write(stdout, 10+ctime(&info.st_mtim), BUFSIZ);
+			write(stdout, 11+ctime(&info.st_mtim), BUFSIZ);
 		}
 		
 		tty_mode(1);
@@ -113,7 +113,7 @@ void QUIT_handler() {
 	}
 	else {
 		char thetime[BUFSIZ];
-		read(thepipe[0], thetime, 5);
+		read(thepipe[0], thetime, BUFSIZ);
 		wmove(menu_win, 2, WIDTH - 10);
 		waddstr(menu_win, thetime);
 		wrefresh(menu_win);
