@@ -219,9 +219,34 @@ void color_setting() {
 	init_pair(8, COLOR_MAGENTA, COLOR_CYAN);
 }
 
+void sub_event() {
+
+	read(thepipe[0], file_ls, BUFSIZ);
+	close(thepipe[0]);
+
+    sub_win = newwin(LINES, 18, 0, WIDTH-19);
+	box(sub_win, 0, 0);
+	wrefresh(sub_win);
+
+	char *ptr;
+
+	ptr = strtok(file_ls, "\n");
+    
+    int i = 1;
+
+	while (ptr != NULL) {
+		wmove(sub_win, i, 1);
+		waddstr(sub_win, ptr);
+		i += 1
+
+		ptr = strtok(NULL, "\n");
+	}
+}
+
 void *draw_event() {
 
 	void menu_event();
+	void sub_event();
 
     initscr();
     noecho();
@@ -247,29 +272,18 @@ void *draw_event() {
 
     menu_event();
 
-	sub_win = newwin(LINES, 18, 0, WIDTH-19);
-	box(sub_win, 0, 0);
-	wrefresh(sub_win);
-
-	read(thepipe[0], file_ls, BUFSIZ);
-	close(thepipe[0]);
-
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
     color_black(main_win);
     color_black(menu_win);
 	color_black(sub_win);
-    
-    char ps[5];
-	strncpy(ps, file_ls, 5);
+
 
     refresh();
     box(menu_win, 0, 0);
     wrefresh(menu_win);
 	box(sub_win, 0, 0);
-	wmove(sub_win, 1, 1);
-	waddstr(sub_win, ps);
 	wrefresh(sub_win);
     wmove(main_win, cury, curx);
     wrefresh(main_win);
