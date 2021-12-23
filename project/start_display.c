@@ -24,6 +24,7 @@ WINDOW *choice_win;
 
 void choice_file();
 void search_file();
+void *first_key_event();
 
 int main(void) {
    
@@ -72,8 +73,6 @@ void choice_file() {
 	initscr();
 	noecho();
     keypad(stdscr, TRUE);
-
-    void *first_key_event();
 
 	search_file();
 
