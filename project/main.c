@@ -202,7 +202,7 @@ void menu_event() {
 	waddstr(menu_win, " ");
 	wattroff(menu_win, COLOR_PAIR(8));
 	wmove(menu_win, 2, WIDTH-10);
-	waddstr(menu_win, 11+ctime(&info->mtim));
+	waddstr(menu_win, 11+ctime(&info.mtim));
 
 	wmove(menu_win, 1, 60);
 	waddstr(menu_win, "d - draw | Ctrl+\\ - save and exit | q - not save and exit");
