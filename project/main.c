@@ -4,7 +4,6 @@
 #include <termios.h>
 #include <pthread.h>
 #include <fcntl.h>
-#include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
