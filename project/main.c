@@ -83,33 +83,33 @@ void QUIT_handler() {
 	}
 	else if ( pid > 0 ) {
 
-		// remove(file_link);
+		remove(file_link);
 	
-		// FILE *f;
-		// f = fopen(file_link, "a");
+		FILE *f;
+		f = fopen(file_link, "a");
 		
-		// putwin(main_win, f);
-		// fclose(f);
+		putwin(main_win, f);
+		fclose(f);
 
-		// struct stat info;
+		struct stat info;
 
-		// if (stat(file_link, &info) == -1) {
-		// 	perror(file_link);
-		// }
-		// else {
-		// 	close(thepipe[0]);
-		// 	dup2(thepipe[1], 1);
-		// 	close(thepipe[1]);
+		if (stat(file_link, &info) == -1) {
+			perror(file_link);
+		}
+		else {
+			close(thepipe[0]);
+			dup2(thepipe[1], 1);
+			close(thepipe[1]);
 
-		// 	write(stdout, 11+ctime(&info.st_mtim), BUFSIZ);
-		// }
+			write(stdout, 11+ctime(&info.st_mtim), BUFSIZ);
+		}
 		
-		// tty_mode(1);
-		// signal(SIGINT, SIG_DFL);
-		// signal(SIGQUIT, SIG_DFL);
+		tty_mode(1);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		
-		// endwin();
-		// exit(1);
+		endwin();
+		exit(1);
 	}
 	else {
 		char thetime[BUFSIZ] = " ";
@@ -225,7 +225,7 @@ void *draw_event() {
     keypad(stdscr, TRUE);
 	color_setting();
 
-	set_ticker(1000);
+	set_ticker(60000);
 
 	signal( SIGALRM, auto_set);
 
