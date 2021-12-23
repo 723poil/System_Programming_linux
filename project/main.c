@@ -75,6 +75,7 @@ int main(int ac, char *av[]) {
 	else {
 		sub_win = newwin(LINES, 20, 0, WIDTH-20);
 		box(sub_win, 0, 0);
+		refresh();
 		wrefresh(sub_win);
 
 	}
