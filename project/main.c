@@ -105,23 +105,23 @@ void choice_file() {
     char buffer[BUFSIZ];
 	read(thepipe[0], buffer, BUFSIZ);
 
-    mvwprintw(choice_win, 1, 5, buffer);
+    // mvwprintw(choice_win, 1, 5, buffer);
 
 	char *ptr = strtok(buffer, " ");
 
-	// while(ptr != NULL) {
-	// 	strcpy(files[filenum], ptr); 
-	// 	files[filenum][strlen(ptr)] = '\0';
-	// 	filenum += 1;
-	// 	ptr = strtok(NULL, " ");
-	// }
+	while(ptr != NULL) {
+		strcpy(files[filenum], ptr); 
+		files[filenum][strlen(ptr)] = '\0';
+		filenum += 1;
+		ptr = strtok(NULL, " ");
+	}
 
-	// for (int i = 1; i <= filenum; i++) {
-    //     //wmove(choice_win, i, 2);
-	// 	mvwprintw(choice_win, i, 5, files[i-1]);
-	// 	// box(choice_win, 0, 0);
-	// 	// wrefresh(choice_win);
-	// }
+	for (int i = 1; i <= filenum; i++) {
+        //wmove(choice_win, i, 2);
+		mvwprintw(choice_win, i, 5, files[i-1]);
+		// box(choice_win, 0, 0);
+		// wrefresh(choice_win);
+	}
 	wmove(choice_win, 1, 1);
 	refresh();
 	//box(choice_win, 0, 0);
@@ -133,7 +133,15 @@ void choice_file() {
 
 	while(1) {
 		wmove(choice_win, 1, 1);
-		int ch = getch();
+		wrefresh(choice_win);
+		pthread_t t;
+		pthread_create(&t, NULL, first_key_event, (void *)NULL);
+		pthread_join(t, NULL);
+	}
+}
+
+void *first_key_event() {
+	int ch = getch();
         MEVENT event;
 
 		if(ch == KEY_MOUSE) {
@@ -152,10 +160,6 @@ void choice_file() {
 				}
 			}
 		}
-		else {
-			waddstr(choice_win, "1");
-		}
-	}
 }
 
 void QUIT_handler() {
