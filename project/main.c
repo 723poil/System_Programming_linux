@@ -72,52 +72,17 @@ int main(int ac, char *av[]) {
 
 void QUIT_handler() {
 
-    int pid;
-
-	if ( pipe(thepipe) == -1 ) {
-		perror("pipe");
-	}
-
-	if ( (pid = fork()) == -1) {
-		perror("fork");
-	}
-	else if ( pid == 0 ) {
-
-		remove(file_link);
+    remove(file_link);
 	
-		FILE *f;
-		f = fopen(file_link, "a");
+	FILE *f;
+	f = fopen(file_link, "a");
 		
-		putwin(main_win, f);
-		fclose(f);
+	putwin(main_win, f);
+	fclose(f);
 
-		struct stat info;
-
-		if (stat(file_link, &info) == -1) {
-			perror(file_link);
-		}
-		else {
-			close(thepipe[0]);
-			dup2(thepipe[1], 1);
-			close(thepipe[1]);
-
-			write(stdout, 11+ctime(&info.st_mtim), BUFSIZ);
-		}
-		close(0);
-		close(1);
-		close(2);
-	}
-	else {
-		char thetime[BUFSIZ] = " ";
-		read(thepipe[0], thetime, BUFSIZ);
-		wmove(menu_win, 2, WIDTH - 20);
-		waddstr(menu_win, thetime);
-		wrefresh(menu_win);
-		wmove(main_win, cury, curx);
-		wrefresh(main_win);
-		close(thepipe[0]);
-		close(thepipe[1]);
-	}
+	signal(SIGINT, SIG_DFL);
+    signal(SIGQUIT, QUIT_DFL);
+	tty_mode(1);
 }
 
 void set_nodelay_mode() {
@@ -270,21 +235,25 @@ void *draw_event() {
 
 void auto_set() {
 
-    int pid;
+	remove(file_link);
 
-	if( (pid = fork()) == -1) {
-		perror("fork");
-		exit(1);
-	}
-	else if ( pid == 0 ) {
-
-		remove(file_link);
-
-		FILE *f;
-		f = fopen(file_link, "a");
+	FILE *f;
+	f = fopen(file_link, "a");
 		
-		putwin(main_win, f);
-		fclose(f);
+	putwin(main_win, f);
+	fclose(f);
+	
+	struct stat info;
+
+	if (stat(file_link, &info) == -1) {
+		perror(file_link);
+	}
+	else {
+		wmove(menu_win, 2, WIDTH - 20);
+		waddstr(menu_win, 11+ctime(&info.st_mtim));
+		wrefresh(menu_win);
+		wmove(main_win, cury, curx);
+		wrefresh(main_win);
 	}
 }
 
