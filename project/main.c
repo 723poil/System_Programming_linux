@@ -50,8 +50,7 @@ int main(int ac, char av[]) {
     signal(SIGINT, SIG_IGN);
     signal(SIGQUIT, QUIT_handler);
 
-    strcpy(file_name, av[1]);
-	filename[strlen(av[1])] = '\0';
+    file_name = av[1];
 
     pthread_t mouse_thread;
 	
