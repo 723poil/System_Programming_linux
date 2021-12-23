@@ -29,8 +29,8 @@ int first_key_event();
 int main(void) {
    
     //tty_mode(0);
-    //set_nodelay_mode();
-    signal(SIGINT, SIG_IGN);
+    // //set_nodelay_mode();
+    // signal(SIGINT, SIG_IGN);
     //signal(SIGQUIT, QUIT_handler);
 
     choice_file();
@@ -62,6 +62,7 @@ void search_file() {
 		execlp("ls", "ls", "draw", NULL);
 	}
 	else {
+        close(thepipe[1]);
 		wait(NULL);
 	}
 }
@@ -85,6 +86,7 @@ void choice_file() {
 	
     char buffer[BUFSIZ];
 	read(thepipe[0], buffer, BUFSIZ);
+    close(thepipe[0]);
 
 	char *ptr = strtok(buffer, "\n");
 
