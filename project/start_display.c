@@ -103,13 +103,31 @@ void choice_file() {
     int start_bool = 1;
 
 	while(1) {
-		start_bool = first_key_event();
-        mvwprintw(choice_win, 13, 19, "1");
-        if (start_bool == 0) {
-            continue;
-        }
-        else if (start_bool == -1) {
-            continue;
+		// start_bool = first_key_event();
+        // mvwprintw(choice_win, 13, 19, "1");
+        // if (start_bool == 0) {
+        //     continue;
+        // }
+        // else if (start_bool == -1) {
+        //     continue;
+        // }
+        int ch = wgetch(choice_win);
+        MEVENT event;
+
+        int conti = 1;
+
+        if(ch == KEY_MOUSE) {
+            if(getmouse(&event) == OK) {
+                if(event.bstate & BUTTON1_PRESSED) {
+                    if (event.y > 5 && event.y < HEIGHT && event.x > 20 && event.x < 45) {
+                        strcpy(file_name, files[event.y - 6]);
+                        snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
+                        clear();
+                        endwin();
+                        break;
+                    }
+                }
+            }
         }
 	}
 }
