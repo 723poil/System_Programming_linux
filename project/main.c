@@ -21,6 +21,8 @@ int cury = 1;
 
 int cs = 1;
 
+int thepipe[2];
+
 char file_name[20];
 
 WINDOW *main_win;
@@ -34,7 +36,8 @@ void color_black(WINDOW * win);
 void QUIT_handler();
 int set_ticker(int);
 void auto_set();
-//void search_file():
+void choice_file();
+void search_file():
 
 int main(void) {
    
@@ -45,6 +48,8 @@ int main(void) {
 
     pthread_t mouse_thread;
 
+    choice_file();
+
     pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
     pthread_join(mouse_thread, NULL);
 
@@ -53,9 +58,8 @@ int main(void) {
     return 0;
 }
 
-/* void search_file() {
+void search_file() {
 
-	int thepipe[2];
 	int pid;
 
 	if (pipe(thepipe) == -1) {
@@ -81,6 +85,30 @@ int main(void) {
 
 	}
 }*/
+
+void choice_file() {
+
+	initscr();
+
+	WINDOW* choice_win;
+
+    struct filename {
+		int i;
+		char name[20];
+	}
+
+	//struct filename file_arr;
+
+	choice_win = new_win(HEIGHT - 5, 25, 5, 20);
+	box(choice_win, 0, 0);
+	
+    fgets(file_name, 20, thepipe[0]);
+
+    wmove(choice_win, 1, 1);
+	waddstr(choice_win, file_name);
+	wrefresh(choice_win);
+
+}
 
 void QUIT_handler() {
 
