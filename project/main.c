@@ -43,7 +43,7 @@ void QUIT_handler();
 int set_ticker(int);
 void auto_set();
 
-int main(int ac, char av[]) {
+int main(int ac, char *av[]) {
    
     tty_mode(0);
     set_nodelay_mode();
@@ -54,7 +54,7 @@ int main(int ac, char av[]) {
 		return 0;
 	}
 	else if (ac == 2) {
-        strcpy(&file_name, &av[1]);
+        strcpy(file_name, av[1]);
 	}
 
     pthread_t mouse_thread;
