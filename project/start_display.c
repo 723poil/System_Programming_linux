@@ -110,7 +110,7 @@ void choice_file() {
         mvwprintw(choice_win, 13, 19, &start_bool);
         wrefresh(choice_win);
         if (start_bool == 0) {
-            break;
+            continue;
         }
         else if (start_bool == -1) {
             exit(1);
