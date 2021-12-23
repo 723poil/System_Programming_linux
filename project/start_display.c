@@ -112,7 +112,6 @@ void choice_file() {
         // mvwprintw(choice_win, 12, 23, bol);
         // wrefresh(choice_win);
 	}
-    return NULL;
 }
 
 void *first_key_event() {
