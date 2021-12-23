@@ -85,6 +85,7 @@ void QUIT_handler() {
 	tty_mode(1);
 
 	endwin();
+	exit(1);
 }
 
 void set_nodelay_mode() {
