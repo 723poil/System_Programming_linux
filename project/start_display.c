@@ -99,7 +99,6 @@ void choice_file() {
 
 	// wmove(choice_win, 1, 1);
 	box(choice_win, 0, 0);
-	wrefresh(choice_win);
 
     int start_bool = 1;
 
