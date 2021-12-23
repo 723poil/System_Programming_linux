@@ -148,6 +148,9 @@ void choice_file() {
 				}
 			}
 		}
+		else {
+			waddstr(choice_win, "1");
+		}
 	}
 }
 
