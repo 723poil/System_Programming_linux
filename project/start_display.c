@@ -93,9 +93,13 @@ void choice_file() {
 		strcpy(files[filenum], ptr); 
 		files[filenum][strlen(ptr)] = '\0';
 		filenum += 1;
-        mvwprintw(choice_win, filenum, 1, files[filenum-1]);
         ptr = strtok(NULL, "\n");
 	}
+    if (filenum != 10) {
+        for (int i = filenum; i <= 10; i++) {
+            strcpy(files[i]. " ");
+        }
+    }
 
 	box(choice_win, 0, 0);
 
