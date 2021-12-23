@@ -109,7 +109,10 @@ void choice_file() {
     wmove(choice_win, 1, 1);
 	waddstr(choice_win, file_name);
 	wrefresh(choice_win);
-	getch();
+	
+	while(1) {
+		continue;
+	}
 
 }
 
