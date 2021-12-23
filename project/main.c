@@ -103,10 +103,7 @@ void QUIT_handler() {
 
 			write(stdout, 11+ctime(&info.st_mtim), BUFSIZ);
 		}
-
-		endwin();
-		exit(1);
-	
+	    exit(17);
 	}
 	else {
 		wait(NULL);
@@ -115,6 +112,8 @@ void QUIT_handler() {
 		wmove(menu_win, 2, WIDTH - 10);
 		waddstr(menu_win, thetime);
 		wrefresh(menu_win);
+		wmove(main_win, cury, curx);
+		wrefresh(main_win);
 		close(thepipe[0]);
 		close(thepipe[1]);
 	}
