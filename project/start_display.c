@@ -129,6 +129,9 @@ void choice_file() {
                 }
             }
         }
+        else if (ch == 'q') {
+            exit(1);
+        }
 	}
 }
 
