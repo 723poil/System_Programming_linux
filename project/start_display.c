@@ -24,7 +24,7 @@ WINDOW *choice_win;
 
 void choice_file();
 void search_file();
-void *first_key_event();
+void first_key_event();
 
 int main(void) {
    
@@ -106,15 +106,11 @@ void choice_file() {
     int start_bool = 1;
 
 	while(start_bool) {
-		pthread_t t;
-		pthread_create(&t, NULL, first_key_event, (void *) NULL);
-		pthread_join(t, (void *)&start_bool);
-        mvwprintw(choice_win, 12, 23, start_bool);
-        wrefresh(choice_win);
+		start_bool = first_key_event();
 	}
 }
 
-void *first_key_event() {
+void first_key_event() {
 	int ch = getch();
     MEVENT event;
 
