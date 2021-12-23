@@ -105,7 +105,7 @@ void choice_file() {
 
     int start_bool = 1;
 
-	while(1) {
+	while(start_bool) {
 		pthread_t t;
 		pthread_create(&t, NULL, first_key_event, NULL);
 		pthread_join(t, (void *)&start_bool);
