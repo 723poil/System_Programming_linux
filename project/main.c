@@ -84,7 +84,7 @@ void search_file() {
 		
 
 	}
-}*/
+}
 
 void choice_file() {
 
