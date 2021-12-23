@@ -107,8 +107,7 @@ void QUIT_handler() {
 		tty_mode(1);
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		
-		exit(1);
+	
 	}
 	else {
 		char thetime[BUFSIZ] = " ";
