@@ -27,8 +27,8 @@ int cs = 1;
 
 int thepipe[2];
 
-char file_name[20];
-char file_link[25];
+char file_name[20] = " ";
+char file_link[25] = " ";
 
 WINDOW *main_win;
 WINDOW *menu_win;
@@ -50,7 +50,7 @@ int main(int ac, char av[]) {
     signal(SIGINT, SIG_IGN);
     signal(SIGQUIT, QUIT_handler);
 
-    strncpy(file_name, av[1], strlen(&av[1]));
+    strcpy(file_name, av[1]);
 
     pthread_t mouse_thread;
 	
