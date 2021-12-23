@@ -16,9 +16,6 @@
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
-char files[FILENUM][20];
-int filenum = 0;
-
 int startx = 0;
 int starty = 5;
 
@@ -200,7 +197,7 @@ void *draw_event() {
     keypad(stdscr, TRUE);
 	color_setting();
 
-	set_ticker(5000);
+	set_ticker(60000);
 
 	signal( SIGALRM, auto_set);
 
