@@ -27,6 +27,7 @@ char file_name[20];
 
 WINDOW *main_win;
 WINDOW *menu_win;
+WINDOW *choice_win;
 
 void *draw_event();
 void *key_event();
@@ -90,12 +91,10 @@ void choice_file() {
 
 	initscr();
 
-	WINDOW* choice_win;
-
-    struct filename {
-		int i;
-		char name[20];
-	}
+    // struct filename {
+	// 	int i;
+	// 	char name[20];
+	// }
 
 	//struct filename file_arr;
 
