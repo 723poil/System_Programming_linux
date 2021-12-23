@@ -72,6 +72,7 @@ void choice_file() {
 	initscr();
 	noecho();
     keypad(stdscr, TRUE);
+    cbreak();
 
     void *first_key_event();
 
