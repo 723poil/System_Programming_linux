@@ -140,8 +140,10 @@ void *first_key_event() {
 		}
 	}
     else if (ch == 'q') {
-        exit(1);
+        endwin();
+        conti = 0;
+        return (void *)conti;
     }
-
+    wrefresh(choice_win);
     return (void *)conti;
 }
