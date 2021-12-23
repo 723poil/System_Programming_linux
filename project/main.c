@@ -27,8 +27,8 @@ int cs = 1;
 
 int thepipe[2];
 
-char file_name[20] = " ";
-char file_link[25] = " ";
+char file_name[20] = "";
+char file_link[25] = "draw/";
 
 WINDOW *main_win;
 WINDOW *menu_win;
@@ -50,7 +50,7 @@ int main(int ac, char *av[]) {
 	}
 	else if (ac == 2) {
         strcpy(file_name, av[1]);
-		snprintf(file_link, strlen(file_name) + 5, "draw/%s", file_name);
+		strcat(file_link, file_name);
 	}
 
     tty_mode(0);
@@ -115,8 +115,8 @@ void menu_event() {
 	color_black(menu_win);
 	wrefresh(menu_win);
 
-    char output_file[50];
-	snprintf(output_file, strlen(file_name) + 12, "FILE NAME - %s", file_name);
+    char output_file[50] = "FILE NAME - ";
+	strcat(output_file, file_name);
 	wmove(menu_win, 1, 3);
 	waddstr(menu_win, output_file);
 	wmove(menu_win, 1, 28);
