@@ -84,6 +84,7 @@ void QUIT_handler() {
 	else if ( pid > 0 ) {
 
 		remove(file_link);
+
 		
 		FILE *f;
 		f = fopen(file_link, "a");
@@ -117,6 +118,8 @@ void QUIT_handler() {
 		wmove(menu_win, 2, WIDTH - 10);
 		waddstr(menu_win, thetime);
 		wrefresh(menu_win);
+		close(thepipe[0]);
+		close(thepipe[1]);
 	}
 }
 
