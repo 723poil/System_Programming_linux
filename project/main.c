@@ -109,7 +109,7 @@ void choice_file() {
 	char *ptr = strtok(buffer, " ");
 
 	int fd;
-	fd = open("test.txt", O_WRONLY);
+	fd = open("title", O_WRONLY);
 
 	while(ptr != NULL) {
 		strcpy(files[filenum], ptr);
