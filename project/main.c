@@ -32,6 +32,8 @@ int thepipe[2];
 char file_name[20] = "";
 char file_link[25] = "draw/";
 
+int quit_handler = 1;
+
 WINDOW *main_win;
 WINDOW *menu_win;
 WINDOW *choice_win;
@@ -103,12 +105,12 @@ void QUIT_handler() {
 
 			write(stdout, 11+ctime(&info.st_mtim), BUFSIZ);
 		}
-        conti = 0;
+        quit_handler = 0;
 	}
 	else {
 		char thetime[BUFSIZ] = " ";
 		read(thepipe[0], thetime, BUFSIZ);
-		wmove(menu_win, 2, WIDTH - 12);
+		wmove(menu_win, 2, WIDTH - 20);
 		waddstr(menu_win, thetime);
 		wrefresh(menu_win);
 		wmove(main_win, cury, curx);
@@ -262,6 +264,9 @@ void *draw_event() {
 		pthread_t key_t;
         pthread_create(&key_t, NULL, key_event, (void *)NULL);
         pthread_join(key_t, (void *)&conti);
+		if (quit_handler == 0) {
+			conti = 0;
+		}
     }
     return NULL;
 }
