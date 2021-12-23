@@ -112,7 +112,10 @@ void choice_file() {
 		pthread_t t;
 		pthread_create(&t, NULL, first_key_event, &bol);
 		pthread_join(t, NULL);
+        mvwprintw(choice_win, 12, 23);
+        wrefresh(choice_win);
 	}
+    return NULL;
 }
 
 void *first_key_event(int *bol) {
