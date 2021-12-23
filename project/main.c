@@ -97,6 +97,8 @@ void choice_file() {
 	noecho();
     keypad(stdscr, TRUE);
 
+    void *first_key_event();
+
 	search_file();
 
 	choice_win = newwin(HEIGHT - 5, 80, 5, 20);
