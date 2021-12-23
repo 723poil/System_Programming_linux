@@ -101,7 +101,7 @@ void choice_file() {
 	choice_win = new_win(HEIGHT - 5, 25, 5, 20);
 	box(choice_win, 0, 0);
 	
-    fgets(file_name, 20, thepipe[0]);
+    read(thepipe[0], file_name, 20);
 
     wmove(choice_win, 1, 1);
 	waddstr(choice_win, file_name);
