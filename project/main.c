@@ -274,6 +274,8 @@ void change_draw(int row) {
 
 	menu_event();
 	refresh();
+	wrefresh(menu_win);
+	wrefresh(sub_win);
 
 	// FILE *w;
 	// w = fopen(file_link, "r");
