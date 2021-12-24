@@ -13,6 +13,7 @@
 #define WIDTH COLS
 #define HEIGHT LINES-5
 #define FILENUM 10
+#define FILENUM LINES-2
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
@@ -28,10 +29,12 @@ int iscreate = 0;
 int thepipe[2];
 
 int make = 0;
+int filenum = 1;
 
 char file_name[20] = "";
 char file_link[25] = "draw/";
 char file_ls[BUFSIZ];
+char file_set[FILENUM][20];
 
 WINDOW *main_win;
 WINDOW *menu_win;
@@ -46,6 +49,7 @@ void QUIT_handler();
 int set_ticker(int);
 void auto_set();
 void chile_key();
+void change_draw(int row);
 
 int main(int ac, char *av[]) {    
 
@@ -235,21 +239,45 @@ void sub_event() {
 	char *ptr;
 
 	ptr = strtok(file_ls, "\n");
-    
-    int i = 1;
 
 	while (ptr != NULL) {
-		wmove(sub_win, i, 1);
+		wmove(sub_win, filenum, 1);
 		waddstr(sub_win, ptr);
-		i += 1;
+		strcpy(file_set[filenum-1], ptr);
+		if (filenum == FILENUM) {
+			break;
+		}
+		filenum += 1;
 
 		ptr = strtok(NULL, "\n");
 	}
 
 	if (make == 3) {
-	    wmove(sub_win, i, 1);
+	    wmove(sub_win, filenum, 1);
 		waddstr(sub_win, file_name);
 	}
+}
+
+void change_draw(int row) {
+
+    remove(file_link);
+
+	FILE *f;
+	f = fopen(file_link, "w");
+	putwin(main_win, f);
+	fclose(f);
+
+	strcpy(file_name, file_set[row-1]);
+	strcat(file_link, "draw/");
+	strcat(file_link, file_name);
+
+	FILE *w;
+	w = fopen(file_link, "r");
+	main_win = getwin(w);
+	wmove(main_win, cury, curx);
+	box(main_win, 0, 0);
+	wrefresh(main_win);
+	fclose(w);
 }
 
 void *draw_event() {
@@ -369,6 +397,11 @@ void *key_event() {
 					wmove(main_win, cury, curx);
 					box(main_win, 0, 0);
 					wrefresh(main_win);
+				}
+				else if (event.y > 0 && event.y < LINES && event.x > WIDTH-19 && event.x < WIDTH-1) {
+					if(event.y <= filenum){
+						change_draw(event.y);
+					}
 				}
 			}
 		}
