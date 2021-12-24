@@ -27,6 +27,8 @@ int iscreate = 0;
 
 int thepipe[2];
 
+int make = 0;
+
 char file_name[20] = "";
 char file_link[25] = "draw/";
 char file_ls[BUFSIZ];
@@ -70,6 +72,8 @@ int main(int ac, char *av[]) {
 
 			strcpy(file_name, av[1]);
 			strcat(file_link, file_name);
+
+			make = ac;
 		}
 
 		tty_mode(0);
@@ -242,7 +246,7 @@ void sub_event() {
 		ptr = strtok(NULL, "\n");
 	}
 
-	if (ac == 3) {
+	if (make == 3) {
 	    wmove(sub_win, i, 1);
 		waddstr(sub_win, file_name);
 	}
