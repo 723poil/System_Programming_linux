@@ -85,12 +85,24 @@ int main(int ac, char *av[]) {
     	pthread_create(&mouse_thread, NULL, draw_event, (void *)NULL);
     	pthread_join(mouse_thread, NULL);
 
-    	tty_mode(1);		
+    	tty_mode(1);
 	}
 	else {
 		close(thepipe[0]);
 		dup2(thepipe[1], 1);
 		close(thepipe[1]);
+
+		if (ac == 3) {
+
+			iscreate = av[2] - "0";
+
+			strcpy(file_name, av[1]);
+			strcat(file_link, file_name);
+
+			FILE *f;
+			fopen(file_link, "w");
+			fclose(f);
+		}
 
 		execlp("ls", "ls", "draw/", NULL);
 	}
@@ -257,7 +269,6 @@ void *draw_event() {
 
 	signal( SIGALRM, auto_set);
 
-    //main_win = newwin(HEIGHT, WIDTH, starty, startx);
 	if (iscreate == 0) {
 		FILE *w;
 		w = fopen(file_link, "r");
