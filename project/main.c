@@ -12,6 +12,7 @@
 
 #define WIDTH COLS
 #define HEIGHT LINES-5
+#define FILENUM 10
 #define FILENUM 20
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
