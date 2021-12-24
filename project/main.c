@@ -274,6 +274,11 @@ void change_draw(int row) {
 
 	menu_event();
 	refresh();
+	box(menu_win, 0, 0);
+    
+	box(sub_win, 0, 0);
+	
+	box(main_win, 0, 0);
 	wrefresh(menu_win);
 	wrefresh(sub_win);
 	wrefresh(main_win);
