@@ -92,17 +92,17 @@ int main(int ac, char *av[]) {
 		dup2(thepipe[1], 1);
 		close(thepipe[1]);
 
-		// if (ac == 3) {
+		if (ac == 3) {
 
-		// 	iscreate = av[2] - "0";
+			iscreate = av[2] - "0";
 
-		// 	strcpy(file_name, av[1]);
-		// 	strcat(file_link, file_name);
+			strcpy(file_name, av[1]);
+			strcat(file_link, file_name);
 
-		// 	FILE *f;
-		// 	fopen(file_link, "w");
-		// 	fclose(f);
-		// }
+			FILE *f;
+			fopen(file_link, "w");
+			fclose(f);
+		}
 
 		execlp("ls", "ls", "draw/", NULL);
 	}
