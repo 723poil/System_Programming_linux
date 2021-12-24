@@ -297,6 +297,7 @@ void *draw_event() {
 	wrefresh(sub_win);
     wmove(main_win, cury, curx);
     wrefresh(main_win);
+	refresh();
 
     int conti = 1;
 
