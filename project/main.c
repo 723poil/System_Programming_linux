@@ -255,6 +255,7 @@ void sub_event() {
 	if (make == 3) {
 	    wmove(sub_win, filenum, 1);
 		waddstr(sub_win, file_name);
+		strcpy(file_set[filenum-1], ptr);
 	}
 }
 
@@ -271,13 +272,13 @@ void change_draw(int row) {
 	strcat(file_link, "draw/");
 	strcat(file_link, file_name);
 
-	FILE *w;
-	w = fopen(file_link, "r");
-	main_win = getwin(w);
-	wmove(main_win, cury, curx);
-	box(main_win, 0, 0);
-	wrefresh(main_win);
-	fclose(w);
+	// FILE *w;
+	// w = fopen(file_link, "r");
+	// main_win = getwin(w);
+	// wmove(main_win, cury, curx);
+	// box(main_win, 0, 0);
+	// wrefresh(main_win);
+	// fclose(w);
 }
 
 void *draw_event() {
