@@ -282,13 +282,13 @@ void change_draw(int row) {
 	wrefresh(sub_win);
 	wrefresh(main_win);
 
-	// FILE *w;
-	// w = fopen(file_link, "r");
-	// main_win = getwin(w);
-	// wmove(main_win, cury, curx);
-	// box(main_win, 0, 0);
-	// wrefresh(main_win);
-	// fclose(w);
+	FILE *w;
+	w = fopen(file_link, "r");
+	main_win = getwin(w);
+	wmove(main_win, cury, curx);
+	box(main_win, 0, 0);
+	wrefresh(main_win);
+	fclose(w);
 }
 
 void *draw_event() {
