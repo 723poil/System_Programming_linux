@@ -269,15 +269,14 @@ void change_draw(int row) {
 	fclose(f);
 
 	strcpy(file_name, file_set[row-1]);
-	strcat(file_link, "draw/");
+	strcpy(file_link, "draw/");
 	strcat(file_link, file_name);
 
 	menu_event();
+
 	refresh();
 	box(menu_win, 0, 0);
-    
 	box(sub_win, 0, 0);
-	
 	box(main_win, 0, 0);
 	wrefresh(menu_win);
 	wrefresh(sub_win);
