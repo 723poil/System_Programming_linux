@@ -287,9 +287,10 @@ void *draw_event() {
     mousemask(BUTTON1_PRESSED, NULL);
     mouseinterval(0);
 
-    color_black(main_win);
+    
     color_black(menu_win);
 	color_black(sub_win);
+	color_black(main_win);
 
     refresh();
     box(menu_win, 0, 0);
