@@ -273,6 +273,7 @@ void change_draw(int row) {
 	strcat(file_link, file_name);
 
 	menu_event();
+	refresh();
 
 	// FILE *w;
 	// w = fopen(file_link, "r");
