@@ -294,11 +294,13 @@ void *draw_event() {
 
     refresh();
     box(menu_win, 0, 0);
-    wrefresh(menu_win);
+    
 	box(sub_win, 0, 0);
-	wrefresh(sub_win);
+	
 	box(main_win, 0, 0);
 	wmove(main_win, cury, curx);
+	wrefresh(sub_win);
+	wrefresh(menu_win);
     wrefresh(main_win);
 
     int conti = 1;
