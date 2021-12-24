@@ -92,18 +92,6 @@ int main(int ac, char *av[]) {
 		dup2(thepipe[1], 1);
 		close(thepipe[1]);
 
-		if (ac == 3) {
-
-			iscreate = av[2] - "0";
-
-			strcpy(file_name, av[1]);
-			strcat(file_link, file_name);
-
-			FILE *f;
-			fopen(file_link, "w");
-			fclose(f);
-		}
-
 		execlp("ls", "ls", "draw/", NULL);
 	}
 
@@ -252,6 +240,11 @@ void sub_event() {
 		i += 1;
 
 		ptr = strtok(NULL, "\n");
+	}
+
+	if (ac == 3) {
+	    wmove(sub_win, i, 1);
+		waddstr(sub_win, file_name);
 	}
 }
 
