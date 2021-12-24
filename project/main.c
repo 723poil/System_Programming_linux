@@ -12,7 +12,6 @@
 
 #define WIDTH COLS
 #define HEIGHT LINES-5
-#define FILENUM 10
 #define FILENUM 20
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
@@ -410,7 +409,12 @@ void *key_event() {
 					wrefresh(main_win);
 				}
 				else if (event.y > 0 && event.y < LINES && event.x > WIDTH-19 && event.x < WIDTH-1) {
-					if(event.y <= filenum){
+					if(make == 3) {
+						if(event.y <= filenum) {
+							change_draw(event.y);
+						}
+					}
+					else if (event.y < filenum) {
 						change_draw(event.y);
 					}
 				}
