@@ -298,9 +298,10 @@ void *draw_event() {
 	box(sub_win, 0, 0);
 	
 	box(main_win, 0, 0);
-	wmove(main_win, cury, curx);
+	
 	wrefresh(sub_win);
 	wrefresh(menu_win);
+	wmove(main_win, cury, curx);
     wrefresh(main_win);
 
     int conti = 1;
