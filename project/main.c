@@ -255,7 +255,7 @@ void sub_event() {
 	if (make == 3) {
 	    wmove(sub_win, filenum, 1);
 		waddstr(sub_win, file_name);
-		strcpy(file_set[filenum-1], ptr);
+		strcpy(file_set[filenum-1], file_name);
 	}
 }
 
