@@ -208,7 +208,7 @@ void menu_event() {
 	wattron(menu_win, COLOR_PAIR(8));
 	waddstr(menu_win, " ");
 	wattroff(menu_win, COLOR_PAIR(8));
-	wmove(menu_win, 2, WIDTH-48);
+	wmove(menu_win, 3, WIDTH-48);
 	waddstr(menu_win, 11+ctime(&info.st_mtim));
 
 	wmove(menu_win, 1, 60);
@@ -327,7 +327,7 @@ void auto_set() {
 	}
 	else {
 		pthread_mutex_lock(&lock);
-		wmove(menu_win, 2, WIDTH - 48);
+		wmove(menu_win, 3, WIDTH - 48);
 		waddstr(menu_win, 11+ctime(&info.st_mtim));
 		wrefresh(menu_win);
 		wmove(main_win, cury, curx);
